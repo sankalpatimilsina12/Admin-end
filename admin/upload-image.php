@@ -1,4 +1,4 @@
-<?php require_once("includes/connection.php") ?>
+<?php require_once("../includes/connection.php") ?>
 
 <?php session_start(); ?>
 
@@ -14,7 +14,7 @@
   if(isset($_POST['submit-btn'])) {
     $file = $_FILES['fileToUpload']['name'];
     $file_loc = $_FILES['fileToUpload']['tmp_name'];
-    $folder="images/uploads/";
+    $folder="../images/uploads/";
     move_uploaded_file($file_loc,$folder.$file);
 
     switch($_GET['request']) {
