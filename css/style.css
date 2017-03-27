@@ -1,0 +1,105 @@
+/*
+Custom style-sheet.
+*/
+
+body
+{
+  background-image: url('../images/background-image.jpg');
+  background-repeat: no-repeat;
+}
+#login-unsuccess-informer, #title-error, #text-error, #error-message
+{
+ color: red;
+}
+.center-div
+{
+  margin: 17% 35%;
+  width: 50%;
+}
+.left-container, .right-container, .bottom-container
+{
+  height: 20%;
+  text-align: center;
+  display: block;
+}
+.left-container
+{
+  background-color: springgreen;
+}
+.right-container
+{
+  background-color: cyan;
+}
+.bottom-container
+{
+  background-color: lightcoral;
+}
+.dashboard-header
+{
+  padding-top: 10%;
+  color: black;
+  font-family: georgia;
+}
+#page-manager, #image-manager
+{
+  text-align: center;
+}
+#page-list-title, #image-list-title
+{
+  padding-left: 60%;
+}
+.lleft
+{
+  background-color: gray;
+}
+.lleft:hover
+{
+  cursor: pointer;
+}
+#page-manager, #page-list-title, #image-manager, #image-list-title, tr, .lleft
+{
+  color: gainsboro;
+}
+#table-row
+{
+  background-color: grey;
+  opacity: 0.8;
+}
+#table-row:hover
+{
+  background-color:grey;
+  opacity: 1;
+  cursor: pointer;  
+}
+#page-add-title
+{
+  text-align: center;
+}
+#cancel-button, #add-button
+{
+  cursor: default;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+#table-images
+{
+  width: 100px;
+  height: 100px;
+}
