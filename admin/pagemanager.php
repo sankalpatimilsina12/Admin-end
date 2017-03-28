@@ -46,13 +46,13 @@
 <html lang="en">
   <!--head begins-->
   <?php require_once("../includes/head-components.php") ?>
-  </head>
+  <head>
   <!--head ends-->
 
   <!--body begins-->
   <body>
     <div class="container">
-      <h2 id="page-manager">Page Manager</h2>
+      <h2 style="text-align:center; color: gainsboro">Page Manager</h2>
       <br>
       <br>
       <h3 id="page-list-title">Pages List</h3>

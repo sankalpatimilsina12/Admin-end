@@ -35,6 +35,19 @@
   <!--body starts-->
   <body>
     <div class="container">
+      <h2 style="text-align:center; color: gainsboro;">Admin Manager</h2>
+      <br>
+      <br>
+      <h3 id="users-list-title">Users List</h3>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="list-group">
+            <a href="pagemanager.php" class="list-group-item lleft">Page manager</a>
+            <a href="imagemanager.php" class="list-group-item lleft">Image manager</a>
+            <a href="dashboard.php" class="list-group-item lleft">Dashboard</a>
+          </div>
+        </div>
+      <div class="col-sm-8">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -57,7 +70,7 @@
           ?>
         </tbody>
       </table> 
-      <a role="button" class="btn btn-primary" href="dashboard.php">Dashboard</a>
+      </div>
     </div>
   </body>
   <!--body ends-->

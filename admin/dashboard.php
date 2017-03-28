@@ -21,19 +21,12 @@
 
   <!--body starts-->
   <body>
-    <div class="container">
-      <div class="row" style="margin-top: 15%">
-        <a style="text-decoration:none" id="page-manager" href="pagemanager.php" class="col-sm-6 left-container">
-          <h3 class="dashboard-header">Page Manager</h3>
-        </a>
-        <a style="text-decoration:none" id="admin-manager" href="admin-manager.php" class="col-sm-6 right-container">
-          <h3 class="dashboard-header">Admin Manager</h3>
-        </a>
-      </div>
-      <div class="row">
-        <a style="text-decoration:none" href="logged-out.php" class="col-sm-12 bottom-container">
-          <h3 class="dashboard-header" style="padding-top: 5%">Logout</h3>
-        </a>
+    <div class="container-fluid">
+      <h3 style="text-align:center; color:gainsboro; margin-top: 5%;">Welcome to dashboard</h3>
+      <div class="list-group" style="margin-top: 5%">
+        <a href="pagemanager.php" class="list-group-item lleft">Page manager</a>
+        <a href="admin-manager.php" class="list-group-item lleft">Admin manager</a>
+        <a href="logged-out.php" class="list-group-item lleft">Logout</a>
       </div>
   </body>
   <!--body ends-->
