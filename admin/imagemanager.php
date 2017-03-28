@@ -5,7 +5,7 @@
 
 <?php
   if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-    header("Location:not-logged.php");
+    header("Location:index.php");
   }
 ?>
 

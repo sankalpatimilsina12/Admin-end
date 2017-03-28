@@ -9,7 +9,7 @@ the page-manager which then edits(updates) the specified page in the database.
 
 <?php
   if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-    header("Location:not-logged.php");
+    header("Location:index.php");
   }
 ?>
 
