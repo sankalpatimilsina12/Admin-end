@@ -3,12 +3,6 @@
 <?php session_start(); ?>
 
 <?php
-  if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-    header("Location:index.php");
-  }
-?>
-
-<?php
   $message = "Enter email to recover password";
 
   if(isset($_POST['email'])) {
@@ -43,7 +37,7 @@
           <button class="btn btn-primary" type="submit">Submit</button>
           &nbsp;
           &nbsp;
-          <a role="button" class="btn btn-info" href="login.php">Login</a>
+          <a role="button" class="btn btn-info" href="index.php">Login Now</a>
           </div>
         </div>
       </form>
