@@ -3,7 +3,7 @@ This page displays a email/password edit form used to submit edited form details
 the admin-manager which then edits(updates) the specified user in the database.
 -->
 
-<?php require_once("../includes/connection.php") ?>
+<?php require_once("includes/connection.php") ?>
 
 <?php session_start(); ?>
 
@@ -23,8 +23,8 @@ $row = $result->fetch_all();
 
 <html lang="en">
   <!--head begins-->
-  <?php require_once("../includes/head-components.php") ?>
-  <script src="../js/validate.js"></script>
+  <?php require_once("includes/head-components.php") ?>
+  <script src="js/validate.js"></script>
   </head>
   <!--head ends-->
 

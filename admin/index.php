@@ -13,9 +13,9 @@
 
 <html>
   <!--head starts-->
-  <?php require_once("../includes/head-components.php") ?>
-    <script src="../js/cookiemanager.js"></script>
-    <script src="../js/validate.js"></script>
+  <?php require_once("includes/head-components.php") ?>
+    <script src="js/cookiemanager.js"></script>
+    <script src="js/validate.js"></script>
   </head>
   <!--head ends-->
 

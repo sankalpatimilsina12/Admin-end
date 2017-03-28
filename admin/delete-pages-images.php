@@ -4,7 +4,7 @@
   request origin.
 -->
 
-<?php require_once("../includes/connection.php") ?>
+<?php require_once("includes/connection.php") ?>
 
 <?php session_start(); ?>
 

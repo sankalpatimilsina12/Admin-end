@@ -3,7 +3,7 @@
   row(or page) in the pages table.
 -->
 
-<?php require_once("../includes/connection.php") ?>
+<?php require_once("includes/connection.php") ?>
 
 <?php session_start(); ?>
 
@@ -23,7 +23,7 @@
 
 <html lang="en">
   <!--head starts-->
-  <?php require_once("../includes/head-components.php") ?>
+  <?php require_once("includes/head-components.php") ?>
   </head>
   <!--head ends-->
 
@@ -50,7 +50,7 @@
                   for($i = 0; $i < $result->num_rows; $i++) {
                     echo "<tr id='table-row'>";
                     $image = $db->getConnection()->real_escape_string($row[$i][1]);
-                    echo "<td>.'<img id=\"table-images\" src=\"../images/uploads/$image\" />'. </td>";
+                    echo "<td>.'<img id=\"table-images\" src=\"images/uploads/$image\" />'. </td>";
                     $image_row_id = $row[0][0];
                     echo "<td><a role='button' class='btn btn-danger' href='delete-pages-images.php?request=list-images&image_row_id=$image_row_id&row_id=$row_id'>Delete</a></td>";
                     echo "</tr>";

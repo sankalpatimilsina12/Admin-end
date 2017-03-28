@@ -7,7 +7,7 @@
 -->
 
 
-<?php require_once("../includes/connection.php"); ?>
+<?php require_once("includes/connection.php"); ?>
 
 <?php session_start(); ?>
 
@@ -45,7 +45,7 @@
 
 <html lang="en">
   <!--head begins-->
-  <?php require_once("../includes/head-components.php") ?>
+  <?php require_once("includes/head-components.php") ?>
   <head>
   <!--head ends-->
 

@@ -1,4 +1,4 @@
-<?php require_once("../includes/connection.php") ?>
+<?php require_once("includes/connection.php") ?>
 
 
 <?php session_start(); ?>
@@ -23,7 +23,7 @@
 
 <html lang="en">
   <!--head starts-->
-  <?php require_once("../includes/head-components.php") ?>
+  <?php require_once("includes/head-components.php") ?>
   </head>
   <!--head ends-->
 
@@ -71,7 +71,7 @@
                     echo "<tr id='table-row'>";
                     echo "<td>" . $row[$i][0] . "</td>";
                     $image = $db->getConnection()->real_escape_string($row[$i][1]);
-                    echo "<td>.'<img id=\"table-images\" src=\"../images/uploads/$image\" />'. </td>";
+                    echo "<td>.'<img id=\"table-images\" src=\"images/uploads/$image\" />'. </td>";
                     echo "<td>" . $row[$i][2] . "</td>";
                     $row_num = $row[$i][0];
                     echo "<td><a role='button' onclick='return confirm(\"Are you sure?\");' class='btn btn-large btn-danger col-sm-6' href='delete-pages-images.php?request=imagemanager&row_id=$row_num'>Delete</a></td>";

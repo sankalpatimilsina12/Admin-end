@@ -13,7 +13,7 @@ the page-manager which then creates the specified new page in the database.
 
 <html lang="en">
   <!--head starts-->
-  <?php require_once("../includes/head-components.php") ?>
+  <?php require_once("includes/head-components.php") ?>
   </head>
   <!--head ends-->
 

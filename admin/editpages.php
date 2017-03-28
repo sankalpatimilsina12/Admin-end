@@ -3,7 +3,7 @@ This page displays a page edit form used to submit edited page details to
 the page-manager which then edits(updates) the specified page in the database.
 -->
 
-<?php require_once("../includes/connection.php") ?>
+<?php require_once("includes/connection.php") ?>
 
 <?php session_start(); ?>
 
@@ -23,7 +23,7 @@ $row = $result->fetch_all();
 
 <html lang="en">
   <!--head begins-->
-  <?php require_once("../includes/head-components.php") ?>
+  <?php require_once("includes/head-components.php") ?>
   </head>
   <!--head ends-->
 

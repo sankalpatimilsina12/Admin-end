@@ -15,7 +15,7 @@
 
 <html lang="en">
   <!--head starts-->
-  <?php require_once("../includes/head-components.php") ?>
+  <?php require_once("includes/head-components.php") ?>
   </head>
   <!--head ends-->
 
