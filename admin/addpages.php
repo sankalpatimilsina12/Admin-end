@@ -8,6 +8,7 @@ the page-manager which then creates the specified new page in the database.
 <?php
   if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
     header("Location:index.php");
+    exit;
   }
 ?>
 

@@ -16,7 +16,6 @@
       $message = "Your password is: {$row[0][0]}";
 
     }
-
   }
 ?>
 
