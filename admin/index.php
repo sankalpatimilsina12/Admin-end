@@ -7,14 +7,13 @@
 <?php
   session_start();
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    session_unset();
-    session_destroy();
+    header("Location:dashboard.php");
   }
 ?>
 
-<html lang="en">
+<html>
   <!--head starts-->
-  <?php require_once("../includes/header.php") ?>
+  <?php require_once("../includes/head-components.php") ?>
     <script src="../js/cookiemanager.js"></script>
     <script src="../js/validate.js"></script>
   </head>

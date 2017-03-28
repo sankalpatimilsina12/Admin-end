@@ -23,7 +23,7 @@ $row = $result->fetch_all();
 
 <html lang="en">
   <!--head begins-->
-  <?php require_once("../includes/header.php") ?>
+  <?php require_once("../includes/head-components.php") ?>
   <script src="../js/validate.js"></script>
   </head>
   <!--head ends-->

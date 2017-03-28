@@ -15,7 +15,7 @@
 
 <html lang="en">
   <!--head starts-->
-  <?php require_once("../includes/header.php") ?>
+  <?php require_once("../includes/head-components.php") ?>
   </head>
   <!--head ends-->
 
@@ -31,7 +31,7 @@
         </a>
       </div>
       <div class="row">
-        <a style="text-decoration:none" href="login.php" class="col-sm-12 bottom-container">
+        <a style="text-decoration:none" href="logged-out.php" class="col-sm-12 bottom-container">
           <h3 class="dashboard-header" style="padding-top: 5%">Logout</h3>
         </a>
       </div>
