@@ -15,12 +15,16 @@
   if(isset($_POST['submit-btn'])) {
     $file = $_FILES['fileToUpload']['name'];
     $file_loc = $_FILES['fileToUpload']['tmp_name'];
-    $folder="../images/uploads/";
+    $folder="images/uploads/";
     move_uploaded_file($file_loc,$folder.$file);
 
     switch($_GET['request']) {
       case 'imagemanager':
-                $row_id = $_POST['page_id'];
+                $page_title = $_POST['page_title'];
+                $query = "SELECT id FROM pages WHERE title='$page_title'";
+                $result = mysqli_query($db->getConnection(), $query);
+                $row = $result->fetch_all();
+                $row_id = $row[0][0];
                 $location = "imagemanager.php";
                 break;
 

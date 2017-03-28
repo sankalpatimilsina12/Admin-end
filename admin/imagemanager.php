@@ -17,9 +17,9 @@
     $result = mysqli_query($db->getConnection(), $query);
     $row = $result->fetch_all();
 
-    $query = "SELECT id FROM pages";
+    $query = "SELECT title FROM pages";
     $result_page = mysqli_query($db->getConnection(), $query);
-    $page_id = $result_page->fetch_all();
+    $page_row = $result_page->fetch_all();
 ?>
 
 <html lang="en">
@@ -43,9 +43,9 @@
                   Add Image<input id="file" name="fileToUpload" type="file" style="display: none;">
               </label>
               <div class="form-group">
-                <select class="form-control list-group-item lleft" id="page-select" style="display:none" name="page_id">
+                <select class="form-control list-group-item lleft" id="page-select" style="display:none" name="page_title">
                   <?php for($i = 0; $i < $result_page->num_rows; $i++) {
-                    echo "<option>{$page_id[$i][1]}</option>";
+                    echo "<option>{$page_row[$i][0]}</option>";
                   }
                   ?>
                 </select>
