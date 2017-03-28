@@ -14,6 +14,7 @@
 
     if($result->num_rows > 0) {
       $message = "Your password is: {$row[0][0]}";
+
     }
 
   }
