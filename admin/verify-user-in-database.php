@@ -6,15 +6,6 @@
 
 <?php require_once("includes/connection.php"); ?>
 
-<?php session_start(); ?>
-
-<?php
-  if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-    header("Location:index.php");
-    exit;
-  }
-?>
-
 <?php
   $db = new Connect();
 
@@ -26,14 +17,17 @@
   $row = $result->fetch_all();
 
   if($result->num_rows > 0) {
+
     session_start();
     $_SESSION['loggedin'] = true;
     $_SESSION['email'] = $email;
+
     header("Location:dashboard.php");
     exit;
-    }
-    else {
-    header("Location:login.php?login_success=0");
+  }
+
+  else {
+    header("Location:index.php?login_success=0");
     exit;
   } 
 ?>

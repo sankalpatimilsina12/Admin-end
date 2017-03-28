@@ -45,7 +45,7 @@
               <div class="form-group">
                 <select class="form-control list-group-item lleft" id="page-select" style="display:none" name="page_id">
                   <?php for($i = 0; $i < $result_page->num_rows; $i++) {
-                    echo "<option>{$page_id[$i][0]}</option>";
+                    echo "<option>{$page_id[$i][1]}</option>";
                   }
                   ?>
                 </select>
