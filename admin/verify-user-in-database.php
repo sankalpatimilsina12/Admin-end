@@ -11,8 +11,9 @@
 
   $email = $_POST['email'];
   $password = $_POST['password'];
+  $enc = md5($password);
 
-  $query = "SELECT email, password FROM users WHERE email = '".$email."' AND password = '".$password."'";
+  $query = "SELECT email, password FROM users WHERE email = '".$email."' AND password = '".$enc."'";
   $result = mysqli_query($db->getConnection(), $query);
   $row = $result->fetch_all();
 

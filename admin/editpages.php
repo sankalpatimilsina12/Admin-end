@@ -25,6 +25,7 @@ $row = $result->fetch_all();
 <html lang="en">
   <!--head begins-->
   <?php require_once("includes/head-components.php") ?>
+  <script src="ckeditor/ckeditor.js"></script>
   </head>
   <!--head ends-->
 
@@ -61,6 +62,11 @@ $row = $result->fetch_all();
   </body>
   <!--body ends-->
   </html>
+
+  <!--ckeditor replacement-->
+  <script>
+    CKEDITOR.replace('text');
+  </script>
 
 
   <!--validation script-->

@@ -29,6 +29,7 @@
             $query = "DELETE FROM images WHERE images.id=$row_id";
             $location = "imagemanager.php";
             break;
+
     case 'list-images':
             $image_row_id = $_GET['image_row_id'];
             $query = "DELETE FROM images WHERE images.id=$image_row_id";
@@ -37,5 +38,7 @@
   }
 
  $result = mysqli_query($db->getConnection(), $query);
+
  header("Location:$location");
+ exit;
 ?>

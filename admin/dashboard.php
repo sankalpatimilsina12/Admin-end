@@ -22,7 +22,7 @@
 
   <!--body starts-->
   <body>
-    <div class="container-fluid">
+    <div class="container">
       <h3 style="text-align:center; color:gainsboro; margin-top: 5%;">Welcome to dashboard</h3>
       <div class="list-group" style="margin-top: 5%">
         <a href="pagemanager.php" class="list-group-item lleft">Page manager</a>

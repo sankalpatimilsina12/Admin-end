@@ -1,4 +1,5 @@
 <?php require_once("includes/connection.php") ?>
+<?php require_once("includes/send-mail.php") ?>
 
 <?php session_start(); ?>
 
@@ -8,13 +9,38 @@
   if(isset($_POST['email'])) {
     $db = new Connect;
     $inputEmail = $_POST['email'];
-    $query = "SELECT password FROM users WHERE email='$inputEmail'";
+    $query = "SELECT * FROM users WHERE email='$inputEmail'";
     $result = mysqli_query($db->getConnection(), $query);
-    $row = $result->fetch_all();
+
 
     if($result->num_rows > 0) {
-      $message = "Your password is: {$row[0][0]}";
+      // Generate random password for user.
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $randomString = '';
 
+      for($i = 0; $i < 10; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters)-1)];
+      }
+
+      // Send mail here
+      $from = 'sankalpatimilsina12@gmail.com';
+      $to = $inputEmail;
+      $subject = 'CMS';
+      $message = $randomString;
+      print_r($message);
+
+      sendMail($from, $to, $subject, $message);
+      
+      $encryptedPassword = md5($randomString);
+
+      // Update the database
+      $query = "UPDATE users SET password = '$encryptedPassword' WHERE email='$inputEmail'";
+      $result = mysqli_query($db->getConnection(), $query);
+
+      $message = "A mail has been sent to your account.";
+    }
+    else {
+      $message = "Invalid email. Please enter a valid email.";
     }
   }
 ?>

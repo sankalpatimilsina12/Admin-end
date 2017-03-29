@@ -15,6 +15,7 @@ the page-manager which then creates the specified new page in the database.
 <html lang="en">
   <!--head starts-->
   <?php require_once("includes/head-components.php") ?>
+  <script src="ckeditor/ckeditor.js"></script>
   </head>
   <!--head ends-->
 
@@ -51,6 +52,12 @@ the page-manager which then creates the specified new page in the database.
   </body>
   <!--body ends-->
 </html>
+
+
+<!--ckeditor replacement-->
+<script>
+  CKEDITOR.replace('text');
+</script>
 
 <!--validation script-->
 <script>

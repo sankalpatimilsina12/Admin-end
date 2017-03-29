@@ -12,13 +12,22 @@
 <?php
   $db = new Connect;
 
-  if(isset($_GET['row_id'])) {
-    $row_id = (int)$_GET['row_id'];
-
+  if(isset($_GET['request'])) {
     $email = $db->getConnection()->real_escape_string($_POST['email']);
     $password = $db->getConnection()->real_escape_string($_POST['password']);
+    $enc = md5($password);
 
-    $query = "UPDATE users SET email='$email', password='$password' WHERE id=$row_id";
+    switch($_GET['request']) {
+      case 'new-user':
+              $query = "INSERT INTO users (email, password) VALUES ('$email', '$enc')";
+              break;
+
+      case 'update-user':
+              $row_id = (int)$_GET['row_id'];
+              $query = "UPDATE users SET email='$email', password='$enc' WHERE id=$row_id";
+              break;
+    }
+
     $result = mysqli_query($db->getConnection(), $query);
   }
 
@@ -65,12 +74,16 @@
                 echo "<td>{$row[$i][$j]}</td>";
               }
               $row_id = $row[$i][$j-3];
-              echo "<td><a role='button' href='change-email-password.php?row_id=$row_id' class='btn btn-info'>Edit</a></td>";
+              echo "<td><a role='button' href='update-email-password.php?row_id=$row_id' class='btn btn-info'>Edit</a></td>";
+              echo "<td><a role='button' href='delete-user.php?row_id=$row_id' class='btn btn-danger'>Delete</a></td>";
               echo "</tr>";
             }
           ?>
         </tbody>
       </table> 
+      <br>
+      <br>
+      <a role='button' href='create-user.php' class='btn lleft' style="min-width: 100%">Create User</a>;
       </div>
     </div>
   </body>
