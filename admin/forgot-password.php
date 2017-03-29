@@ -27,14 +27,13 @@
       $to = $inputEmail;
       $subject = 'CMS';
       $message = $randomString;
-      print_r($message);
 
       sendMail($from, $to, $subject, $message);
       
-      $encryptedPassword = md5($randomString);
+      $enc = md5($randomString);
 
       // Update the database
-      $query = "UPDATE users SET password = '$encryptedPassword' WHERE email='$inputEmail'";
+      $query = "UPDATE users SET password = '$enc' WHERE email='$inputEmail'";
       $result = mysqli_query($db->getConnection(), $query);
 
       $message = "A mail has been sent to your account.";
