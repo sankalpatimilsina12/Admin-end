@@ -15,8 +15,8 @@
 <html>
   <!--head starts-->
   <?php require_once("head-components.php") ?>
-    <script src="js/cookiemanager.js"></script>
-    <script src="js/validate.js"></script>
+    <script src="../resources/static/js/cookiemanager.js"></script>
+    <script src="../resources/static/js/validate.js"></script>
   </head>
   <!--head ends-->
 

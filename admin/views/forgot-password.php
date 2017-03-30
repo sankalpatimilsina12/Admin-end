@@ -1,5 +1,5 @@
-<?php require_once("includes/connection.php") ?>
-<?php require_once("includes/send-mail.php") ?>
+<?php require_once("../controllers/connection.php") ?>
+<?php require_once("../controllers/mail.php") ?>
 
 <?php session_start(); ?>
 
@@ -26,7 +26,7 @@
       $from = 'sankalpatimilsina12@gmail.com';
       $to = $inputEmail;
       $subject = 'CMS';
-      $message = $randomString;
+      $message = 'Use following password to login: ' . $randomString;
 
       sendMail($from, $to, $subject, $message);
       
@@ -46,7 +46,7 @@
 
 <html>
   <!--head begins-->
-  <?php require_once("includes/head-components.php") ?>
+  <?php require_once("head-components.php") ?>
   </head>
   <!--head ends-->
 
