@@ -12,16 +12,20 @@ function validate() {
   var password = document.getElementById("password").value;
   var rememberToken = document.getElementById("remember-checkbox");
 
+  var flag = true;
+
   if(!validateEmail(email)) {
-    document.getElementById("email-error-message").innerHTML = "Invalid email address";
+    document.getElementById("email-error-message").innerHTML = "Invalid email";
+    flag = false;
   }
 
   if(!validatePassword(password)) {
     document.getElementById("password-error-message").innerHTML = "Invalid password";
+    flag = false;
 
   }
 
-  if(validateEmail(email) && validatePassword(password)) {
+  if(flag) {
 
     if(rememberToken.checked) {
       if(!checkCookie(email) && !checkCookie(password)) {
@@ -31,5 +35,6 @@ function validate() {
     }
     return true;
   }
+
   return false;
 }

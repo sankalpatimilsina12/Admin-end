@@ -4,8 +4,47 @@ Custom style-sheet.
 
 body
 {
-  background-image: url('../images/background-image.jpg');
-  background-repeat: no-repeat;
+  font-family: sans-serif;
+  background-color: #333;
+}
+.container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto;
+}
+.side-nav {
+  position: fixed;
+  top: 7.25%;
+  width: 16.5%;
+  background-color: #222;
+  bottom: 7.25%;
+}
+.right-container {
+  position: fixed;
+  background-color:#fff;
+  top: 7.25%;
+  left: 16.5%;
+  width: 83.5%;
+  bottom: 7.25%;
+  overflow-y: scroll;
+}
+.nav>.active>a {
+  color: #fff;
+  background-color: #080808;
+}
+.nav-item>a {
+  height: 53px;
+  color: #999;
+  line-height: 40px;
+  font-size: 14px;
+}
+.nav-item>a:hover {
+  color: #fff;
+  background-color: #000;
+}
+.btn-custom {
+  background-color: #fff;
 }
 #login-unsuccess-informer, #title-error, #text-error, #error-message
 {
@@ -78,4 +117,15 @@ body
 {
   width: 100px;
   height: 100px;
+}
+#footer {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  background-color: #222;
+  height: 7%;
+}
+.footer-block {
+  color: #fff;
+  margin: 1%;
 }

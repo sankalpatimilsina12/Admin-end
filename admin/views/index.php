@@ -22,6 +22,12 @@
 
   <!--body starts-->
   <body>
+    <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
+      <a class="navbar-brand" href="index.php">
+        <img src="../resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
+      </a>
+    </nav>
+
     <div class="container-fluid">
       <form id="login-form"  onsubmit="return validate();" class="form-horizontal center-div" novalidate="novalidate" role="form" method="post" action="verify-user-in-database.php">
         <div class="form-group">
@@ -65,14 +71,21 @@
           </div>
         </div>
       </form>
+
+
     </div>
+      <!--footer begins-->
+      <div id="footer">
+          <p class="footer-block">CMS &copy; CMS 2017</p>
+      </div>
+      <!--footer ends-->
   </body>
   <!--body ends-->
 </html>
 
 <!--
-  Displays error message for unsuccessful login attempts.
-  Populates the email and password form field if cookie is set.
+Displays error message for unsuccessful login attempts.
+Populates the email and password form field if cookie is set.
 -->
 <script>
   window.onload = function() {
