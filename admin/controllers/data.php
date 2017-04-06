@@ -111,6 +111,21 @@
 
                   $_SESSION['row'] = $row;
                   break;
+
+    case 'logo-footer':
+                  $query = "SELECT logo, footer FROM settings";
+                  $result = mysqli_query($db->getConnection(), $query);
+                  $row = $result->fetch_all();
+
+                  if(isset($_GET['row_id'])) {
+                    $location = "../views/" . $_GET['location'] . "?row_id=" . $_GET['row_id'];
+                  } else {
+                    $location = "../views/" . $_GET['location'];
+                  }
+
+                  $_SESSION['logo'] = $row[0][0];
+                  $_SESSION['footer'] = $row[1][1];
+                  break;
   }
 
   header("Location: $location");

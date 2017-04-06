@@ -96,6 +96,30 @@
 
                     $location = "../views/list-images.php?row_id=$row_id";
                     break;
+
+      case 'settings-logo':
+                    $file = $_FILES['fileToUpload']['name'];
+                    $file_loc = $_FILES['fileToUpload']['tmp_name'];
+                    $folder="../resources/static/images/uploads/";
+                    move_uploaded_file($file_loc,$folder.$file);
+
+                    $query="INSERT INTO settings (id, logo) VALUES (1, '$file')
+                            ON DUPLICATE KEY UPDATE logo='$file'";
+
+                    $location = "../views/settings.php";
+                    break;
+
+
+
+
+      case 'settings-footer':
+                    $footer = $db->getConnection()->real_escape_string($_POST['footer']);
+
+                    $query = "INSERT INTO settings (id, footer) VALUES (2, '$footer')
+                              ON DUPLICATE KEY UPDATE footer='$footer'";
+
+                    $location = "../views/settings.php";
+                    break;
     }
 
     $result = mysqli_query($db->getConnection(), $query);
