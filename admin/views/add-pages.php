@@ -7,7 +7,7 @@
   }
 
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=add-pages.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=add-pages.php");
     exit;
   }
 
@@ -36,6 +36,10 @@
           <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
         </a>
 
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
+        </a>
+        
         <a href="settings.php" class="settings">
           <i class="fa fa-cog" aria-hidden="true"><span class="settings-text"> Settings</span></i>
         </a>

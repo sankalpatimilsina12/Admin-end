@@ -2,8 +2,17 @@
 <?php session_start(); ?>
 
 <?php
+  if(!isset($_SESSION['logo'])) {
+    header("Location: ../admin/controllers/data.php?request=logo-footer-siteurl&location=../../public/index.php");
+    exit;
+  }
+
+  $logo = $_SESSION['logo'];
+  $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+
   if(!isset($_SESSION['page_count'])) {
-    header("Location:../admin/controllers/data.php?request=public-index");
+    header("Location: $site_url/admin/controllers/data.php?request=public-index");
     exit;
 }
   $page_count = $_SESSION['page_count'];
@@ -11,6 +20,9 @@
 
   unset($_SESSION['page_count']);
   unset($_SESSION['image_count']);
+  unset($_SESSION['logo']);
+  unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
 
 ?>
 
@@ -19,12 +31,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../admin/resources/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../admin/resources/static/css/style-public.css">
-    <link rel="stylesheet" href="../admin/resources/font-awesome/css/font-awesome.min.css">
-    <script src="../admin/resources/static/js/jquery-1.6.1.min.js" ></script>
-    <script src="../admin/resources/static/js/bootstrap.min.js" ></script>
-    <script src="../admin/resources/highcharts/highcharts.js" ></script>
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/static/css/style-public.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/jquery-1.6.1.min.js" ></script>
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/bootstrap.min.js" ></script>
+    <script src="<?php echo $site_url ?>/admin/resources/highcharts/highcharts.js" ></script>
   </head>
   <!--head ends-->
 
@@ -34,7 +46,7 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
         </a>
       </nav>
 

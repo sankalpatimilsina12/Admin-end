@@ -11,35 +11,36 @@
 ?>
 
 <?php
-  if(!isset($_SESSION['row'])) {
-    header("Location: ../controllers/data.php?request=image-manager");
-    exit;
-  }
-
-  $row = $_SESSION['row'];
-
-  $page_row = $_SESSION['page_row'];
-
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=image-manager.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=image-manager.php");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+
+  if(!isset($_SESSION['row'])) {
+    header("Location: $site_url/admin/controllers/data.php?request=image-manager");
+    exit;
+  }
+
+  $row = $_SESSION['row'];
+  $page_row = $_SESSION['page_row'];
 
 
   unset($_SESSION['row']);
   unset($_SESSION['page_row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
 
 ?>
 
 <html lang="en">
   <!--head starts-->
   <?php require_once("head-components.php") ?>
-  <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
   </head>
   <!--head ends-->
 
@@ -49,7 +50,11 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">
@@ -115,10 +120,10 @@
 
             echo "<div class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#ececd6;'>";
-            echo "<img class'card-img-top style='width: 100%; height: 40%' src='../resources/static/images/uploads/{$row[3 * $i + $j][1]}' alt='img'>";
+            echo "<img class'card-img-top style='width: 100%; height: 40%' src='$site_url/admin/resources/static/images/uploads/{$row[3 * $i + $j][1]}' alt='img'>";
             echo "<div class='card-block' style='position: relative; height: 15%;'>";
             $row_id = $row[3 * $i + $j][0];
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger col-sm-6' style='position: absolute; left: 25%; bottom: 25%;' href='../controllers/manager.php?request=imagemanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger col-sm-6' style='position: absolute; left: 25%; bottom: 25%;' href='$site_url/admin/controllers/manager.php?request=imagemanager-delete&row_id=$row_id'>Delete</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";

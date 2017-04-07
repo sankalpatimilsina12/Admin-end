@@ -1,12 +1,3 @@
-<!--
-  This is the main page for all page managing events like adding and editing pages.
-  Takes the post request from the requesting page(ie. add, edit) and builds the
-  corresponding database query to update the database.
-
-  Populates the page with data from database.
--->
-
-
 <?php require_once("../controllers/connection.php"); ?>
 
 <?php session_start(); ?>
@@ -20,30 +11,35 @@
 
 <!--Get data to populate the page-->
 <?php
-  if(!isset($_SESSION['row'])) {
-    header('Location: ../controllers/data.php?request=page-manager');
-    exit;
-  }
-
-  $row = $_SESSION['row'];
-
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=page-manager.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=page-manager.php");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+
+  if(!isset($_SESSION['row'])) {
+    $location = "$site_url" . "/admin/controllers/data.php?request=page-manager";
+    header("Location: $location");
+    exit;
+  }
+
+  $row = $_SESSION['row'];
+
+
 
   unset($_SESSION['row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
 ?>
 
 <html lang="en">
   <!--head begins-->
     <?php require_once("head-components.php") ?>
-    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
   </head>
   <!--head ends-->
 
@@ -53,7 +49,11 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">
@@ -124,8 +124,8 @@
             $row_id = $row[3 * $i + $j][0];
             echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-page.php?row_id=$row_id'>Edit page</a>";
             echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='../controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
-            echo "<a role='button' class='btn btn-warning' style='position: absolute; left: 70%; bottom: 6%;' href='#'>Read</a>";
+            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' class='btn btn-warning' style='position: absolute; left: 70%; bottom: 6%;' href='list-images.php?row_id=$row_id'>Images</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";

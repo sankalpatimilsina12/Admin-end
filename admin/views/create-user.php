@@ -7,22 +7,25 @@
   }
 
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=create-user.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=create-user.php");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
 
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
+
 ?>
 
 <html lang="en">
   <!--head begins-->
   <?php require_once("head-components.php") ?>
-    <script src="../resources/static/js/validate.js"></script>
-    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/validate.js"></script>
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
   </head>
   <!--head ends-->
 
@@ -32,7 +35,11 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">
@@ -74,7 +81,7 @@
         <hr>
         <br>
 
-        <form class="form-horizontal" onsubmit="return validate();" novalidate="novalidate" role="form" method="post" action="../controllers/manager.php?request=create-user">
+        <form class="form-horizontal" onsubmit="return validate();" novalidate="novalidate" role="form" method="post" action="<?php echo $site_url ?>/admin/controllers/manager.php?request=create-user">
           <div class="form-group">
             <label class="control-label col-sm-2"><strong>Email:</strong></label>
             <div class="col-sm-12">

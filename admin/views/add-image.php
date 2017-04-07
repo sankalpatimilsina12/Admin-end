@@ -7,15 +7,17 @@
   }
 
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=add-image.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=add-image.php");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
 
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
 ?>
 
 <?php 
@@ -25,7 +27,7 @@
 <html lang="en">
   <!--head starts-->
   <?php require_once("head-components.php") ?>
-  <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
   </head>
   <!--head ends-->
 
@@ -36,7 +38,11 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">
@@ -78,7 +84,7 @@
         <hr>
         <br>
 
-        <form class="form-horizontal" onsubmit="return isImageLoaded();" role="form" method="post" action="../controllers/manager.php?request=imagemanager-upload" enctype="multipart/form-data">
+        <form class="form-horizontal" onsubmit="return isImageLoaded();" role="form" method="post" action="<?php echo $site_url ?>/admin/controllers/manager.php?request=imagemanager-upload" enctype="multipart/form-data">
           <div class="form-group">
             <label class="btn btn-primary" style="width: 100%">
                 <span id="add-image">Add Image</span><input id="file" name="fileToUpload" type="file" style="display: none;">
@@ -130,7 +136,7 @@
   document.getElementById("file").onchange = function () {
     document.getElementById("add-image").innerHTML = "Image Loaded."
     var imageName = document.getElementById("file").value.substr(12);
-    document.getElementById("selected-image").src = "../resources/static/images/uploads/" + imageName;
+    document.getElementById("selected-image").src = "<?php echo $site_url ?>/admin/resources/static/images/uploads/" + imageName;
   }
 </script>
 

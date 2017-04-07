@@ -12,11 +12,27 @@
   }
 ?>
 
+<?php
+  if(!isset($_SESSION['logo'])) {
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=index.php");
+    exit;
+  }
+
+  $logo = $_SESSION['logo'];
+  $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+  
+  unset($_SESSION['logo']);
+  unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
+
+?>
+
 <html>
   <!--head starts-->
   <?php require_once("head-components.php") ?>
-    <script src="../resources/static/js/cookiemanager.js"></script>
-    <script src="../resources/static/js/validate.js"></script>
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/cookiemanager.js"></script>
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/validate.js"></script>
   </head>
   <!--head ends-->
 
@@ -24,37 +40,38 @@
   <body>
     <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
       <a class="navbar-brand" href="index.php">
-        <img src="../resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
+        <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
       </a>
     </nav>
 
     <div class="container-fluid">
       <form id="login-form"  onsubmit="return validate();" class="form-horizontal center-div" novalidate="novalidate" role="form" method="post" action="verify-user-in-database.php">
+        <label style="color: #fff; padding: 2% 18%"><strong>PLEASE LOG IN TO CONTINUE</strong></label>
         <div class="form-group">
-          <label class="control-label col-sm-2" for="email">Email:</label>
+          <label class="control-label col-sm-2" for="email" style="color: #fff"><strong>Email:</strong></label>
           <div class="row col-sm-12">
             <div class="col-sm-8">
               <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
             </div>
             <div class="col-sm-4">
-              <span id="email-error-message" style="color: red;"></span>
+              <span id="email-error-message" style="color: green;"></span>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-sm-2" for="pwd">Password:</label>
+          <label class="control-label col-sm-2" for="pwd" style="color: #fff"><strong>Password:</strong></label>
           <div class="row col-sm-12">
             <div class="col-sm-8"> 
               <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
             </div>
             <div class="col-sm-4">
-              <span id="password-error-message" style="color: red;"></span>
+              <span id="password-error-message" style="color: green;"></span>
             </div>
         </div>
         <div class="form-group"> 
           <div class="col-sm-10">
             <div class="checkbox">
-              <label><input id="remember-checkbox" type="checkbox"> Remember me</label>
+              <label style="color: #fff"><input id="remember-checkbox" type="checkbox"> Remember me</label>
               <a role="button" href="forgot-password.php" class="btn btn-link" style="color: beige; cursor: pointer; font-size: 14px">Forgot Password?</a>
             </div>
           </div>
@@ -71,14 +88,14 @@
           </div>
         </div>
       </form>
-
-
     </div>
-      <!--footer begins-->
-      <div id="footer">
-          <p class="footer-block">CMS &copy; CMS 2017</p>
-      </div>
-      <!--footer ends-->
+
+    <!--footer begins-->
+    <div id="footer">
+        <p class="footer-block">CMS &copy; CMS 2017</p>
+    </div>
+    <!--footer ends-->
+    
   </body>
   <!--body ends-->
 </html>

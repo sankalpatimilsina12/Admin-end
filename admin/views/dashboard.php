@@ -14,35 +14,37 @@
 <!--Get data to populate the charts-->
 
 <?php
-  if(!isset($_SESSION['page_count'])) {
-    header("Location:../controllers/data.php?request=dashboard");
-    exit;
-}
-  $page_count = $_SESSION['page_count'];
-  $image_count = $_SESSION['image_count'];
-
-
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=dashboard.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=dashboard.php");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
 
+  if(!isset($_SESSION['page_count'])) {
+    $location = "$site_url" . "/admin/controllers/data.php?request=dashboard";
+    header("Location: $location");
+    exit;
+  }
+
+  $page_count = $_SESSION['page_count'];
+  $image_count = $_SESSION['image_count'];
 
   unset($_SESSION['page_count']);
   unset($_SESSION['image_count']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
 
 ?>
 
 <html lang="en">
   <!--head begins-->
     <?php require_once("head-components.php") ?>
-    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
-    <script src="../resources/highcharts/highcharts.js" ></script>
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
+    <script src="<?php echo $site_url ?>/admin/resources/highcharts/highcharts.js" ></script>
   </head>
   <!--head ends-->
 
@@ -52,7 +54,11 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">

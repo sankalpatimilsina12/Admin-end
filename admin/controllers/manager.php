@@ -110,8 +110,6 @@
                     break;
 
 
-
-
       case 'settings-footer':
                     $footer = $db->getConnection()->real_escape_string($_POST['footer']);
 

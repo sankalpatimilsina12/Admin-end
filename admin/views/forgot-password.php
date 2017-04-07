@@ -4,7 +4,19 @@
 <?php session_start(); ?>
 
 <?php
-  $message = "Enter email to recover password";
+  if(!isset($_SESSION['logo'])) {
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=index.php");
+    exit;
+  }
+
+  $logo = $_SESSION['logo'];
+  $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+
+?>
+
+<?php
+  $message = "PLEASE ENTER EMAIL TO RECOVER PASSWORD";
 
   if(isset($_POST['email'])) {
     $db = new Connect;
@@ -52,21 +64,34 @@
 
   <!--body begins-->
   <body>
-    <div class="container">
-      <h5 style="color: green; text-align: center; margin-top: 15%;"><?php echo $message; ?></h5>
-      <form action="" role="form" method="post" novalidate="novalidate" class="form-horizontal center-div" style="margin: 3% 30%;">
+    <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
+      <a class="navbar-brand" href="index.php">
+        <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
+      </a>
+    </nav>
+
+    <div class="container-fluid">
+      <h5 style="color: #fff; text-align: center; margin: 13% 0 2% 10%"><?php echo $message; ?></h5>
+      <form action="" role="form" method="post" novalidate="novalidate" class="form-horizontal" style="margin-left: 25%">
         <div class="form-group">
           <div class="col-sm-10">
             <input class="form-control" name="email" placeholder="Email">
             <br>
-          <button class="btn btn-primary" type="submit">Submit</button>
+          <button class="btn btn-primary col-sm-4" type="submit">Submit</button>
           &nbsp;
           &nbsp;
-          <a role="button" class="btn btn-info" href="index.php">Login Now</a>
+          <a role="button" class="btn btn-info col-sm-4" href="index.php">Login Now</a>
           </div>
         </div>
       </form>
     </div>
+
+    <!--footer begins-->
+    <div id="footer">
+        <p class="footer-block">CMS &copy; CMS 2017</p>
+    </div>
+    <!--footer ends-->
+
   </body>
   <!--body ends-->
 </html>

@@ -2,14 +2,26 @@
 <?php session_start(); ?>
 
 <?php
+  if(!isset($_SESSION['logo'])) {
+    header("Location:../admin/controllers/data.php?request=logo-footer-siteurl&location=../../public/images.php");
+    exit;
+  }
+
+  $logo = $_SESSION['logo'];
+  $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+
   if(!isset($_SESSION['row'])) {
-    header("Location:../admin/controllers/data.php?request=public-images");
+    header("Location: $site_url/admin/controllers/data.php?request=public-images");
     exit;
 }
 
   $images = $_SESSION['row'];
 
   unset($_SESSION['row']);
+  unset($_SESSION['logo']);
+  unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
 
 ?>
 
@@ -18,14 +30,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../admin/resources/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../admin/resources/static/css/style-public.css">
-    <link rel="stylesheet" href="../admin/resources/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../admin/resources/static/css/ihover.css">
-    <script src="../admin/resources/static/js/jquery-1.6.1.min.js" ></script>
-    <link rel="stylesheet" href="../admin/resources/static/css/prettyPhoto.css">
-    <script src="../admin/resources/static/js/jquery.prettyPhoto.js"></script>
-    <script src="../admin/resources/static/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/static/css/style-public.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/static/css/ihover.css">
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/jquery-1.6.1.min.js" ></script>
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/static/css/prettyPhoto.css">
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/jquery.prettyPhoto.js"></script>
+    <script src="<?php echo $site_url ?>/admin/resources/static/js/bootstrap.min.js" ></script>
   </head>
   <!--head ends-->
 
@@ -37,7 +49,7 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
         </a>
       </nav>
 
@@ -82,8 +94,8 @@
 
             echo "<div class='col-sm-3'>";
             echo "<div class='ih-item square effect7 img-fluid' style='max-width:100%;'>";
-            echo "<a href='../admin/resources/static/images/uploads/{$images[$i * 4 + $j][0]}' rel='prettyPhoto[gallery3]'>";
-            echo "<div class='img'><img src='../admin/resources/static/images/uploads/{$images[$i * 4 + $j][0]}'></div>";
+            echo "<a href='$site_url/admin/resources/static/images/uploads/{$images[$i * 4 + $j][0]}' rel='prettyPhoto[gallery3]'>";
+            echo "<div class='img'><img src='$site_url/admin/resources/static/images/uploads/{$images[$i * 4 + $j][0]}'></div>";
             echo "<div class='info'>";
             echo "<h3>{$images[$i * 4 + $j][0]}</h3>";
             echo "</div>";

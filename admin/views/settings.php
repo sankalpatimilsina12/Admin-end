@@ -8,21 +8,24 @@
   }
 
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=settings.php");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=settings.php");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
 
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
+
 ?>
 
 <html lang="en">
   <!--head begins-->
     <?php require_once("head-components.php") ?>
-    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
   </head>
   <!--head ends-->
 
@@ -33,6 +36,10 @@
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
           <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">
@@ -80,7 +87,7 @@
         <div class="row" style="padding: 2%">
           <div class="col-sm-6" style="padding: 1%">
 
-            <form class="form-horizontal" onsubmit="return isImageLoaded();" role="form" method="post" action="../controllers/manager.php?request=settings-logo" enctype="multipart/form-data">
+            <form class="form-horizontal" onsubmit="return isImageLoaded();" role="form" method="post" action="<?php echo $site_url ?>/admin/controllers/manager.php?request=settings-logo" enctype="multipart/form-data">
             
               <i class="fa fa-cogs" style="padding-bottom: 5%"><span class="settings-text"><strong> Change Site Logo</strong></span></i>
 
@@ -101,7 +108,7 @@
           </div>
 
           <div class="col-sm-6" style="padding: 1%">
-            <form onsubmit="return validate();" class="form-horizontal" novalidate="novalidate" role="form" method="post" action="../controllers/manager.php?request=settings-footer">
+            <form onsubmit="return validate();" class="form-horizontal" novalidate="novalidate" role="form" method="post" action="<?php echo $site_url ?>/admin/controllers/manager.php?request=settings-footer">
 
               <i class="fa fa-cogs" style="padding-bottom: 5%"><span class="settings-text"><strong> Change Footer</strong></span></i>
 

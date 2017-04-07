@@ -9,32 +9,39 @@
 
 <!--Get data to populate the page-->
 <?php
-  if(!isset($_SESSION['row'])) {
-    $row_id = $_GET['row_id'];
-    header("Location: ../controllers/data.php?request=edit-page&row_id=$row_id");
-    exit;
-  }
+
   $row_id = $_GET['row_id'];
-  $row = $_SESSION['row'];
 
   if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer&location=edit-page.php&row_id=$row_id");
+    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=edit-page.php&row_id=$row_id");
     exit;
   }
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
+
+  if(!isset($_SESSION['row'])) {
+    $row_id = $_GET['row_id'];
+    header("Location: $site_url/admin/controllers/data.php?request=edit-page&row_id=$row_id");
+    exit;
+  }
+
+  $row = $_SESSION['row'];
+
 
   unset($_SESSION['row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
+
 ?>
 
 <html lang="en">
   <!--head begins-->
   <?php require_once("head-components.php") ?>
-    <script src="../resources/ckeditor/ckeditor.js"></script>
-    <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
+    <script src="<?php echo $site_url ?>/admin/resources/ckeditor/ckeditor.js"></script>
+    <link rel="stylesheet" href="<?php echo $site_url ?>/admin/resources/font-awesome/css/font-awesome.min.css">
   </head>
   <!--head ends-->
 
@@ -44,7 +51,11 @@
 
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
-          <img src="../resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+          <img src="<?php echo $site_url ?>/admin/resources/static/images/uploads/<?php echo $logo; ?>" width="30" height="30" alt="cms-logo">
+        </a>
+
+        <a href="logged-out.php" class="logout">
+          <i class="fa fa-sign-out" aria-hidden="true"><span class="logout-text"> Log Out</span></i>
         </a>
 
         <a href="settings.php" class="settings">
