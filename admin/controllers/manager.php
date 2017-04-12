@@ -1,4 +1,5 @@
 <?php require_once("connection.php") ?>
+<?php require_once("mail.php") ?>
 
 <?php
 
@@ -8,9 +9,21 @@
 
     switch($_GET['request']) {
       case 'addpages':
+
+                  if(isset($_POST['page_title'])) {
+                    $selected_page = $db->getConnection()->real_escape_string($_POST['page_title']);
+                    $query = "SELECT id from pages WHERE title='$selected_page'";
+                    $result = mysqli_query($db->getConnection(), $query);
+                    $row = $result->fetch_all();
+                    $parent_id = $row[0][0];
+
+                  } else {
+                    $parent_id = -1;
+                  }
+
                   $title = $db->getConnection()->real_escape_string($_POST['title']);
                   $content = $db->getConnection()->real_escape_string($_POST['content']);
-                  $query = "INSERT INTO pages (title, text) VALUES ('$title', '$content')";
+                  $query = "INSERT INTO pages (title, text, parent_id) VALUES ('$title', '$content', $parent_id)";
                   $location = "../views/page-manager.php";
                   break;
 
@@ -118,6 +131,157 @@
 
                     $location = "../views/settings.php";
                     break;
+
+      case 'request-quote-mail':
+                    $firstName = $_POST['first-name'];
+                    $lastName = $_POST['last-name'];
+                    $phone = $_POST['phone'];
+                    $email = $_POST['email'];
+                    $addressFirst = (function() {
+                      if(isset($_POST['address-1']) && $_POST['address-1'] != "") 
+                        return $_POST['address-1'];
+
+                        return "null";
+                    })();
+
+                    $addressSecond = (function() {
+                      if(isset($_POST['address-2']) && $_POST['address-2'] != "") 
+                        return $_POST['address-2'];
+
+                        return "null";
+                    })();
+
+                    $country = (function() {
+                      if(isset($_POST['country']) && $_POST['country'] != "Select Country")
+                        return $_POST['country'];
+
+                        return "null";
+                    })();
+
+                    $stateprovince =  (function() {
+                      if($_POST['state-province'] != "")
+                        return $_POST['state-province'];
+
+                        return "null";
+                    })();
+
+                    $city = (function() {
+                      if($_POST['city'] != "")
+                        return $_POST['city'];
+
+                        return "null";
+                    })();
+
+                    $postalcode = (function() {
+                      if($_POST['postal-code'] != "")
+                        return $_POST['postal-code'];
+
+                        return "null";
+                    })();
+
+                    $dateResponse = (function() {
+                      if($_POST['date-response'] != "")
+                        return $_POST['date-response'];
+
+                        return "null";
+                    })();
+
+                    $contactMe = (function() {
+                      $choices = array();
+
+                      if(isset($_POST['checkbox-email']) && $_POST['checkbox-email'] == 'email')
+                        array_push($choices, "email");
+                      else 
+                        array_push($choices, null);
+
+                      if(isset($_POST['checkbox-phone']) && $_POST['checkbox-phone'] == 'phone')
+                        array_push($choices, "phone");
+                      else 
+                        array_push($choices, null);
+
+                      if(isset($_POST['checkbox-post']) && $_POST['checkbox-post'] == 'post')
+                        array_push($choices, "post");
+                      else 
+                        array_push($choices, null);
+
+                      $nullFlag = false;
+
+                      foreach($choices as $x) {
+                        if($x == null) {
+                          $nullFlag = true;
+                        }
+                      }
+
+                      if($nullFlag) {
+                        return "null";
+                      }
+
+                      return $choices;
+                    })();
+
+                    $gender = (function() {
+                      if(isset($_POST['gender'])) 
+                        return $_POST['gender'];
+
+                      return "null";
+                    })();
+
+                    $servicesInterested = (function() {
+                      if(isset($_POST['services-interested']))
+                        return $_POST['services-interested'];
+
+                      $numServicesSelected = count($servicesInterested);
+                      for($i = 0; $i < 3; $i++) {
+                        if(!isset($servicesInterested[$i]))
+                          $servicesInterested[$i] = null;
+                      }
+                      
+                      return "null";
+                    })();
+
+
+                    $otherNotes = (function() {
+                      if(isset($_POST['other-notes']) && $_POST['other-notes'] != "")
+                        return $_POST['other-notes'];
+
+                      return "null";
+                    })();
+
+                    // Send Mail
+                    $from = "sankalpatimilsina12@gmail.com";
+                    $to = "sankalpatimilsina12@gmail.com";
+                    $message = "Hi Admin, <br>
+                    You’ve received a quote request from website on: [date/time]. Details below:<br>
+                    First Name = $firstName<br>
+                    Last Name = $lastName<br>
+                    Phone = $phone<br>
+                    Email = $email<br>
+                    Address1 = $addressFirst<br>
+                    Address2 = $addressSecond<br>
+                    Country = $country<br>
+                    State/Province = $stateprovince<br>
+                    City = $city<br>
+                    Postal Code = $postalcode<br>
+                    Response Date = $dateResponse<br>
+                    ContactMeVia = $contactMe[0] $contactMe[1] $contactMe[2]<br>
+                    Gender = $gender<br>
+                    Services Interested = $servicesInterested[0] $servicesInterested[1] $servicesInterested[2]<br>
+                    Other Notes = $otherNotes<br>
+                    <br>
+                    Thank you,<br>
+                    CMS";
+
+                    $subject = "Quote Request From CMS";
+
+                    $replyTo = $email;
+
+                    sendMail($from, $to, $subject, $message, $replyTo);
+
+                    $query = "";
+                    $location = "../../public/request-quote.php";
+                    
+                    break;
+
     }
 
     $result = mysqli_query($db->getConnection(), $query);

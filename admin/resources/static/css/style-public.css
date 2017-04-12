@@ -15,6 +15,19 @@ body {
   background-color: #222;
   bottom: 7%;
 }
+.request-quote {
+  position: fixed;
+  top: 2.5%;
+  right: 3.8%;
+  color: #999;
+}
+.request-quote-text { 
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.request-quote:hover {
+  color: #fff;
+}
 .right-container {
   position: fixed;
   background-color:#fff;
@@ -49,7 +62,7 @@ body {
   bottom: 0;
   width: 100%;
   position: fixed;
-  background-color: #333;
+  background-color: #222;
   height: 7%;
 }
 .footer-block {

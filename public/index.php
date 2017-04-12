@@ -48,6 +48,10 @@
         <a class="navbar-brand" href="index.php">
           <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
         </a>
+
+        <a href="request-quote.php" class="request-quote">
+          <i class="fa fa-envelope-o" aria-hidden="true"><span class="request-quote-text"> Request Quote</span></i>
+        </a>
       </nav>
 
       <nav class="nav flex-column side-nav">
@@ -55,7 +59,7 @@
           <a class="nav-link" href="images.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Pages Viewport</a>
+          <a class="nav-link" href="pages.php"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Pages Viewport</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="images.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Images Viewport</a>
@@ -84,7 +88,7 @@
               <div class="card-block">
                 <h3 class="card-title">Pages Overview</h3>
                 <p class="card-text">Discusses all the general pages of different users.</p>
-                <a role="button" class="btn btn-custom" href="#">Pages board</a>
+                <a role="button" class="btn btn-custom" href="pages.php">Pages board</a>
               </div>
             </div>
           </div>

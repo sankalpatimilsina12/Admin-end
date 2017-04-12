@@ -65,6 +65,15 @@
                   $_SESSION['row'] = $row;
                   break;
 
+    case 'add-page':
+                  $query = "SELECT title FROM pages WHERE parent_id=-1";
+                  $result = mysqli_query($db->getConnection(), $query);
+                  $row = $result->fetch_all();
+                  $location = "../views/add-pages.php";
+
+                  $_SESSION['row'] = $row;
+                  break;
+
     case 'edit-page':
                   $row_id = $_GET['row_id'];
                   $query = "SELECT title, text FROM pages WHERE id=$row_id";
@@ -102,12 +111,32 @@
                   $_SESSION['image_count'] = $image_count;
                   break;
 
+    case 'public-pages':
+                  $query = "SELECT id, title, text, parent_id FROM pages";
+                  $result = mysqli_query($db->getConnection(), $query);
+                  $row = $result->fetch_all();
+
+                  $location = "../../public/pages.php";
+
+                  $_SESSION['row'] = $row;
+                  break;
+
     case 'public-images':
                   $query = "SELECT image FROM images";
                   $result = mysqli_query($db->getConnection(), $query);
                   $row = $result->fetch_all();
 
                   $location = "../../public/images.php";
+
+                  $_SESSION['row'] = $row;
+                  break;
+
+    case 'request-quote':
+                  $query = "SELECT name, code FROM tbl_country";
+                  $result = mysqli_query($db->getConnection(), $query);
+                  $row = $result->fetch_all();
+
+                  $location =  "../../public/request-quote.php";
 
                   $_SESSION['row'] = $row;
                   break;
@@ -126,7 +155,6 @@
                   $_SESSION['logo'] = $row[0][0];
                   $_SESSION['footer'] = $row[1][1];
                   $_SESSION['site-url'] = $row[2][2];
-
                   break;
   }
   header("Location: $location");

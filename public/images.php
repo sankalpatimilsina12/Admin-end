@@ -58,7 +58,7 @@
           <a class="nav-link" href="index.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Pages Viewport</a>
+          <a class="nav-link" href="pages.php"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Pages Viewport</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="images.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Images Viewport</a>

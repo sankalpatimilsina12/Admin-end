@@ -13,9 +13,20 @@
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
+  $site_url = $_SESSION['site-url'];
 
+  if(!isset($_SESSION['row'])) {
+    header("Location: $site_url/admin/controllers/data.php?request=add-page");
+    exit;
+  }
+
+  $row = $_SESSION['row'];
+
+  unset($_SESSION['row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
+  unset($_SESSION['site-url']);
+
 ?>
 
 <html lang="en">
@@ -80,6 +91,19 @@
         <br>
 
         <form class="form-horizontal" onsubmit="return validate();" novalidate="novalidate" role="form" method="post" action="../controllers/manager.php?request=addpages">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email"><strong>Parent Page:</strong></label>
+            <div class="col-sm-12">
+              <select class="form-control" id="page-select" name="page_title">
+                <option selected disabled>Select Parent Page</option>
+
+                <?php for($i = 0; $i < count($row); $i++) {
+                  echo "<option>{$row[$i][0]}</option>";
+                }
+                ?>
+              </select>
+            </div>
+          </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="email"><strong>Title:</strong></label>
             <div class="col-sm-12">
