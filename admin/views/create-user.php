@@ -1,3 +1,8 @@
+<!--
+  This page allows to create new users/admin.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 <?php session_start(); ?>
 
 <?php
@@ -6,10 +11,7 @@
     exit;
   }
 
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=create-user.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

@@ -1,6 +1,7 @@
 <!--
   This is the landing page for successfully logged in users/admin.
 -->
+<?php require_once("../controllers/site-contents.php") ?>
 
 <?php session_start(); ?>
 
@@ -14,10 +15,7 @@
 <!--Get data to populate the charts-->
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=dashboard.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

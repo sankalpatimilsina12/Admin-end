@@ -1,3 +1,9 @@
+<!--
+  This page allows users/admin to add new image belonging
+  to particular page as specified by the user.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 <?php session_start(); ?>
 
 <?php
@@ -6,10 +12,7 @@
     exit;
   }
 
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=add-image.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

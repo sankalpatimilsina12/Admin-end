@@ -1,11 +1,16 @@
+<!--
+  The index page shows the basic site interface
+  to public users.
+-->
+
+<?php require_once("../admin/controllers/site-contents.php") ?>
+
 <!--Get data to populate the charts-->
 <?php session_start(); ?>
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location: ../admin/controllers/data.php?request=logo-footer-siteurl&location=../../public/index.php");
-    exit;
-  }
+
+  logoFooterSiteUrl(); 
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

@@ -1,12 +1,15 @@
+<!--
+  Request Quote allows public users to request the admin
+  with various form details for differnet services.
+-->
+
+<?php require_once("../admin/controllers/site-contents.php") ?>
 
 <!--Get data to populate the charts-->
 <?php session_start(); ?>
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location: ../admin/controllers/data.php?request=logo-footer-siteurl&location=../../public/request-quote.php");
-    exit;
-  }
+  logoFooterSiteUrl(); 
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
@@ -56,7 +59,7 @@
       </nav>
 
       <nav class="nav flex-column side-nav">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="images.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</a>
         </li>
         <li class="nav-item">

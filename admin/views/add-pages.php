@@ -1,3 +1,9 @@
+<!--
+  This page allows users to add new page
+  to the pages database.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 <?php session_start(); ?>
 
 <?php
@@ -6,23 +12,18 @@
     exit;
   }
 
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=add-pages.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
   $site_url = $_SESSION['site-url'];
 
-  if(!isset($_SESSION['row'])) {
-    header("Location: $site_url/admin/controllers/data.php?request=add-page");
-    exit;
-  }
+  $db = new Connect;  
+  $query = "SELECT title FROM pages WHERE parent_id=-1";
+  $result = mysqli_query($db->getConnection(), $query);
+  $row = $result->fetch_all();
 
-  $row = $_SESSION['row'];
 
-  unset($_SESSION['row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
   unset($_SESSION['site-url']);

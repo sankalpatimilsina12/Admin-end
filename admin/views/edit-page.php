@@ -1,3 +1,11 @@
+<!--
+  This page allows users/admin to edit/update the existing
+  page in the pages database.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
+<?php require_once("../controllers/connection.php") ?>
+
 <?php session_start(); ?>
 
 <?php
@@ -12,25 +20,18 @@
 
   $row_id = $_GET['row_id'];
 
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=edit-page.php&row_id=$row_id");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
   $site_url = $_SESSION['site-url'];
 
-  if(!isset($_SESSION['row'])) {
-    $row_id = $_GET['row_id'];
-    header("Location: $site_url/admin/controllers/data.php?request=edit-page&row_id=$row_id");
-    exit;
-  }
+  $db = new Connect;
+  $row_id = $_GET['row_id'];
+  $query = "SELECT title, text FROM pages WHERE id=$row_id";
+  $result = mysqli_query($db->getConnection(), $query);
+  $row = $result->fetch_all();
 
-  $row = $_SESSION['row'];
-
-
-  unset($_SESSION['row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
   unset($_SESSION['site-url']);
@@ -70,16 +71,16 @@
 
         <div class="collapse navbar-collapse flex-column side-nav" id="navbarSupportedContent">
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</a>
+            <a class="nav-link" href="<?php echo $site_url ?>/admin/views/dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="page-manager.php"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Page Manager</a>
+            <a class="nav-link" href="<?php echo $site_url ?>/admin/views/page-manager.php"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Page Manager</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="image-manager.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Image Manager</a>
+            <a class="nav-link" href="<?php echo $site_url ?>/admin/views/image-manager.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Image Manager</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="admin-manager.php"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Admin Manager</a>
+            <a class="nav-link" href="<?php echo $site_url ?>/admin/views/admin-manager.php"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Admin Manager</a>
           </li>
         </div>
       </nav>
@@ -97,7 +98,7 @@
         <hr>
         <br>
 
-        <form onsubmit="return validate();" class="form-horizontal" novalidate="novalidate" role="form" method="post" action="../controllers/manager.php?request=editpages&row_id=<?php echo $row_id ?>">
+        <form onsubmit="return validate();" class="form-horizontal" novalidate="novalidate" role="form" method="post" action="<?php echo $site_url; ?>/admin/controllers/manager.php?request=editpages&row_id=<?php echo $row_id ?>">
           <div class="form-group">
             <label class="control-label col-sm-2"><strong>Title:</strong></label>
             <div class="col-sm-12">
@@ -118,7 +119,7 @@
                 <button id="add-button" class="btn btn-primary" style="width: 100%" type="submit">Update</button>
               </div>
               <div class="col-sm-6">
-                <a id="cancel-button" class="btn btn-warning" style="width: 100%" role="button" href="page-manager.php">Cancel</a>
+                <a id="cancel-button" class="btn btn-warning" style="width: 100%" role="button" href="<?php echo $site_url; ?>/admin/views/page-manager.php">Cancel</a>
               </div>
             </div>
           </div>

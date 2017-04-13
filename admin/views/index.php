@@ -4,6 +4,8 @@
   password field validation.
 -->
 
+<?php require_once("../controllers/site-contents.php") ?>
+
 <?php
   session_start();
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -13,10 +15,7 @@
 ?>
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=index.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

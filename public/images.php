@@ -1,11 +1,15 @@
+<!--
+  This page shows all the images to public users
+  with zoom-in effects.
+-->
+
+<?php require_once("../admin/controllers/site-contents.php") ?>
+
 <!--Get data to populate the charts-->
 <?php session_start(); ?>
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../admin/controllers/data.php?request=logo-footer-siteurl&location=../../public/images.php");
-    exit;
-  }
+  logoFooterSiteUrl(); 
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
@@ -50,6 +54,9 @@
       <nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #222; height: 50px;">
         <a class="navbar-brand" href="index.php">
           <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
+        </a>
+        <a href="request-quote.php" class="request-quote">
+          <i class="fa fa-envelope-o" aria-hidden="true"><span class="request-quote-text"> Request Quote</span></i>
         </a>
       </nav>
 

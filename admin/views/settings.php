@@ -1,3 +1,9 @@
+<!--
+  This page shows the basic site settings like changing
+  site logo and footer.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 
 <?php session_start(); ?>
 
@@ -7,10 +13,7 @@
     exit;
   }
 
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=settings.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

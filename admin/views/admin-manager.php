@@ -1,3 +1,9 @@
+<!--
+  This page shows all the registered users/admin in the
+  database with user editing options.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 <?php require_once("../controllers/connection.php") ?>
 
 <?php session_start(); ?>
@@ -9,26 +15,19 @@
   }
 ?>
 
+<!--Get data to populate the page.-->
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=admin-manager.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
   $site_url = $_SESSION['site-url'];
 
-  if(!isset($_SESSION['row'])) {
-    $location = "$site_url" . "/admin/controllers/data.php?request=admin-manager";
-    header("Location:$location");
-    exit;
-  }
+  $db = new Connect;
+  $query = "SELECT id, email, password FROM users";
+  $result = mysqli_query($db->getConnection(), $query);
+  $row = $result->fetch_all();
 
-  $row = $_SESSION['row'];
-
-
-  unset($_SESSION['row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
   unset($_SESSION['site-url']);
@@ -121,7 +120,7 @@
             echo "<h3 class='card-title'>$userName</h3>";
             echo "<p class='card-text'>{$row[3 * $i + $j][2]}</p>";
             $row_id = $row[3 * $i + $j][0];
-            echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-user.php?row_id=$row_id'>Edit User</a>";
+            echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-user/$row_id'>Edit User</a>";
             echo "&nbsp;&nbsp;&nbsp;&nbsp;";
             echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=delete-user&row_id=$row_id'>Delete</a>";
             echo "</div>";

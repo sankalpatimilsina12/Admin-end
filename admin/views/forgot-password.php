@@ -1,13 +1,17 @@
+<!--
+  This page allows users to reset the password of their
+  account. The page sends email to the email address
+  specified in the input box with new password.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 <?php require_once("../controllers/connection.php") ?>
 <?php require_once("../controllers/mail.php") ?>
 
 <?php session_start(); ?>
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=index.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];

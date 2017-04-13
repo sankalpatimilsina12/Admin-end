@@ -1,4 +1,12 @@
+<!--
+  Image manager shows all the images of all parent pages
+  with options of add new image and deleting the existing
+  one.
+-->
+
+<?php require_once("../controllers/site-contents.php") ?>
 <?php require_once("../controllers/connection.php") ?>
+
 <?php $db = new Connect; ?>
 
 <?php session_start(); ?>
@@ -11,26 +19,20 @@
 ?>
 
 <?php
-  if(!isset($_SESSION['logo'])) {
-    header("Location:../controllers/data.php?request=logo-footer-siteurl&location=image-manager.php");
-    exit;
-  }
+  logoFooterSiteUrl();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
   $site_url = $_SESSION['site-url'];
 
-  if(!isset($_SESSION['row'])) {
-    header("Location: $site_url/admin/controllers/data.php?request=image-manager");
-    exit;
-  }
+  $query = "SELECT id, image, page_id FROM images";
+  $result = mysqli_query($db->getConnection(), $query);
+  $row = $result->fetch_all();
 
-  $row = $_SESSION['row'];
-  $page_row = $_SESSION['page_row'];
+  $query = "SELECT title FROM pages";
+  $result_page = mysqli_query($db->getConnection(), $query);
+  $page_row = $result_page->fetch_all();
 
-
-  unset($_SESSION['row']);
-  unset($_SESSION['page_row']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
   unset($_SESSION['site-url']);

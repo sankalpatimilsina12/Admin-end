@@ -1,0 +1,4 @@
+RewriteEngine On
+  RewriteRule ^edit-page/([0-9]+) edit-page.php?row_id=$1 [L,QSA]
+  RewriteRule ^edit-user/([0-9]+) edit-user.php?row_id=$1 [L,QSA]
+  RewriteRule ^list-images/row/([0-9]+) list-images.php?row_id=$1 [L,QSA]
