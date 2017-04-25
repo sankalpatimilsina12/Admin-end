@@ -35,10 +35,27 @@
                   $row = $result->fetch_all();
                   $image_count = $row[0][0];
 
+
+                  $query = "SELECT id, title, content, images FROM posts ORDER BY id DESC LIMIT 3";
+                  $result = mysqli_query($db->getConnection(), $query);
+                  $latest_posts = $result->fetch_all();
+
                   $location = "../../public/index.php";
 
                   $_SESSION['page_count'] = $page_count;
                   $_SESSION['image_count'] = $image_count;
+                  $_SESSION['latest_posts'] = $latest_posts;
+                  break;
+
+    case 'public-posts-list':
+                  $query = "SELECT id, title, content, images FROM posts";
+                  $result = mysqli_query($db->getConnection(), $query);
+                  $posts = $result->fetch_all();
+                  $page = $_GET['page'];
+
+                  $location = "../../public/posts-list.php?page=$page";
+
+                  $_SESSION['posts'] = $posts;
                   break;
 
     case 'public-pages':

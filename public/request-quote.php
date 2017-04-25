@@ -56,6 +56,9 @@
         <a href="request-quote.php" class="request-quote">
           <i class="fa fa-envelope-o" aria-hidden="true"><span class="request-quote-text"> Request Quote</span></i>
         </a>
+        <a href="contact-us.php" class="contact-us">
+          <i class="fa fa-users request-quote-text" aria-hidden="true"><span> Contact Us</span></i>
+        </a>
       </nav>
 
       <nav class="nav flex-column side-nav">

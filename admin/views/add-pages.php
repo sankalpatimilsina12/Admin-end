@@ -73,6 +73,15 @@
             <a class="nav-link" href="image-manager.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Image Manager</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="post-manager.php"><i class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;Post Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="slider-manager.php"><i class="fa fa-sliders" aria-hidden="true"></i>&nbsp;Slider Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="newsletter-subscribers.php"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Newsletter Subscribers</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="admin-manager.php"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Admin Manager</a>
           </li>
         </div>
@@ -96,7 +105,8 @@
             <label class="control-label col-sm-2" for="email"><strong>Parent Page:</strong></label>
             <div class="col-sm-12">
               <select class="form-control" id="page-select" name="page_title">
-                <option selected disabled>Select Parent Page</option>
+                <option>New Parent Page</option>
+                <option>New Parent Footer Page</option>
 
                 <?php for($i = 0; $i < count($row); $i++) {
                   echo "<option>{$row[$i][0]}</option>";

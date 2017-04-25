@@ -69,6 +69,15 @@
             <a class="nav-link" href="image-manager.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Image Manager</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="post-manager.php"><i class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;Post Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="slider-manager.php"><i class="fa fa-sliders" aria-hidden="true"></i>&nbsp;Slider Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="newsletter-subscribers.php"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Newsletter Subscribers</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="admin-manager.php"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Admin Manager</a>
           </li>
         </div>
@@ -92,14 +101,14 @@
             <label class="btn btn-primary" style="width: 100%">
                 <span id="add-image">Add Image</span><input id="file" name="fileToUpload" type="file" style="display: none;">
             </label>
-            <div class="form-group">
-              <select class="form-control" id="page-select" name="page_title">
-                <?php for($i = 0; $i < count($page_row); $i++) {
-                  echo "<option>{$page_row[$i][0]}</option>";
-                }
-                ?>
-              </select>
-            </div>
+          </div>
+          <div class="form-group">
+            <select class="form-control" id="page-select" name="page_title">
+              <?php for($i = 0; $i < count($page_row); $i++) {
+                echo "<option>{$page_row[$i][0]}</option>";
+              }
+              ?>
+            </select>
           </div>
 
           <div class="form-group"> 
@@ -134,7 +143,6 @@
   <!--body ends-->
 </html>
 
-<!--Listen for the file upload event to whether display page-id box-->
 <script>
   document.getElementById("file").onchange = function () {
     document.getElementById("add-image").innerHTML = "Image Loaded."

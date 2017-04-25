@@ -25,7 +25,7 @@
   $site_url = $_SESSION['site-url'];
 
   $db = new Connect;
-  $query = "SELECT id, title, text FROM pages";
+  $query = "SELECT id, title, text, parent_id FROM pages";
   $result = mysqli_query($db->getConnection(), $query);
   $row = $result->fetch_all();
 
@@ -75,6 +75,15 @@
             <a class="nav-link" href="image-manager.php"><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Image Manager</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="post-manager.php"><i class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;Post Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="slider-manager.php"><i class="fa fa-sliders" aria-hidden="true"></i>&nbsp;Slider Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="newsletter-subscribers.php"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Newsletter Subscribers</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="admin-manager.php"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Admin Manager</a>
           </li>
         </div>
@@ -113,6 +122,48 @@
             if(!isset($row[3 * $i + $j][1]))
               break;
             
+            if($row[3 * $i + $j][3] == -2)
+              continue;
+
+            echo "<div class='col-sm-4' style='padding: 2%'>";
+            echo "<div class='card card-inverse' style='background-color:#333;'>";
+            echo "<div class='card-block' style='position: relative; height: 40%;'>";
+            echo "<h3 class='card-title'>{$row[3 * $i + $j][1]}</h3>";
+            echo "<p class='card-text'>{$row[3 * $i + $j][2]}</p>";
+            $row_id = $row[3 * $i + $j][0];
+            echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-page/$row_id'>Edit page</a>";
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' class='btn btn-warning' style='position: absolute; left: 66.8%; bottom: 6%;' href='list-images/row/$row_id'>Images</a>";
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+          }
+
+          echo "</div>";
+        // row ends
+        }
+        ?>
+        <div class="row">
+          <div class="col-sm-12">
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i> Footer Pages
+                </li>
+            </ol>
+          </div>
+        </div>
+
+        <?php for($i = 0; $i < ceil(count($row)/3); $i++) {
+          echo "<div class='row'>";
+
+          for($j = 0; $j < 3; $j++) {
+
+            if(!isset($row[3 * $i + $j][1]))
+              break;
+            
+            if($row[3 * $i + $j][3] != -2)
+              continue;
 
             echo "<div class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#333;'>";

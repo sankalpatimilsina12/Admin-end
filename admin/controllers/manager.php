@@ -9,16 +9,18 @@
 
     switch($_GET['request']) {
       case 'addpages':
-
                   if(isset($_POST['page_title'])) {
                     $selected_page = $db->getConnection()->real_escape_string($_POST['page_title']);
-                    $query = "SELECT id from pages WHERE title='$selected_page'";
-                    $result = mysqli_query($db->getConnection(), $query);
-                    $row = $result->fetch_all();
-                    $parent_id = $row[0][0];
-
-                  } else {
-                    $parent_id = -1;
+                    if($_POST['page_title'] == "New Parent Page")
+                      $parent_id = -1;
+                    else if($_POST['page_title'] == "New Parent Footer Page")
+                      $parent_id = -2;
+                    else {
+                      $query = "SELECT id from pages WHERE title='$selected_page'";
+                      $result = mysqli_query($db->getConnection(), $query);
+                      $row = $result->fetch_all();
+                      $parent_id = $row[0][0];
+                    }
                   }
 
                   $title = $db->getConnection()->real_escape_string($_POST['title']);
@@ -27,12 +29,106 @@
                   $location = "../views/page-manager.php";
                   break;
 
+      case 'addslide':
+                  $file = $_FILES['fileToUpload']['name'];
+                  $file_loc = $_FILES['fileToUpload']['tmp_name'];
+                  $folder="../resources/static/images/uploads/";
+                  move_uploaded_file($file_loc,$folder.$file);
+
+                  $title = $db->getConnection()->real_escape_string($_POST['title']);
+                  $description = $db->getConnection()->real_escape_string($_POST['description']);
+
+                  $query="INSERT INTO slides(title, description, image) VALUES ('$title', '$description', '$file')";
+                  $location = "../views/slider-manager.php";
+                  break;
+
+      case 'addpost':
+                  $countFiles = count($_FILES['filesToUpload']['name']);
+                  $fileBlob = null;
+
+                  for($i = 0; $i < $countFiles; $i++)
+                  {
+                    $file = $_FILES['filesToUpload']['name'][$i];
+                    $fileBlob .= $_FILES['filesToUpload']['name'][$i].",";
+                    $file_loc = $_FILES['filesToUpload']['tmp_name'];
+                    $folder="../resources/static/images/uploads/";
+                    move_uploaded_file($file_loc,$folder.$file);
+                  }
+
+                  $title = $db->getConnection()->real_escape_string($_POST['title']);
+                  $content = $db->getConnection()->real_escape_string($_POST['content']);
+                  $seo_title = $db->getConnection()->real_escape_string($_POST['seo-title']);
+                  $meta_title = $db->getConnection()->real_escape_string($_POST['meta-title']);
+                  $meta_keywords = $db->getConnection()->real_escape_string($_POST['meta-title']);
+
+                  $query = "INSERT INTO posts(title, content, seo_title, meta_title, meta_keywords, images)
+                            VALUES('$title', '$content', '$seo_title', '$meta_title', '$meta_keywords', '$fileBlob')";
+                          
+                  $location = "../views/post-manager.php";
+                  break;
+
       case 'editpages':
                   $title = $db->getConnection()->real_escape_string($_POST['title']);
                   $content = $db->getConnection()->real_escape_string($_POST['content']);
                   $row_id = (int)$_GET['row_id'];
                   $query = "UPDATE pages SET title='$title', text='$content' WHERE id=$row_id";
                   $location = "../views/page-manager.php";
+                  break;
+
+      case 'editslide':
+                  $title = $db->getConnection()->real_escape_string($_POST['title']);
+                  $description = $db->getConnection()->real_escape_string($_POST['description']);
+                  $row_id = (int)$_GET['row_id'];
+
+
+                  $file = $_FILES['fileToUpload']['name'];
+                  $file_loc = $_FILES['fileToUpload']['tmp_name'];
+                  $folder="../resources/static/images/uploads/";
+                  move_uploaded_file($file_loc,$folder.$file);
+
+                  if($file != "")
+                    $query = "UPDATE slides SET title='$title', description='$description', image='$file' WHERE id=$row_id";
+                  else 
+                    $query = "UPDATE slides SET title='$title', description='$description' WHERE id=$row_id";
+
+                  $location = "../views/slider-manager.php";
+                  break;
+
+      case 'editpost':
+                  $row_id = (int)$_GET['row_id'];
+                  $countFiles = count(array_filter($_FILES['filesToUpload']['name']));
+                  $fileBlob = null;
+
+                  for($i = 0; $i < $countFiles; $i++)
+                  {
+                    $file = $_FILES['filesToUpload']['name'][$i];
+                    $fileBlob .= $_FILES['filesToUpload']['name'][$i].",";
+                    $file_loc = $_FILES['filesToUpload']['tmp_name'][$i];
+                    $folder="../resources/static/images/uploads/";
+                    move_uploaded_file($file_loc,$folder.$file);
+                  }
+
+
+                  $title = $db->getConnection()->real_escape_string($_POST['title']);
+                  $content = $db->getConnection()->real_escape_string($_POST['content']);
+                  $seo_title = $db->getConnection()->real_escape_string($_POST['seo-title']);
+                  $meta_title = $db->getConnection()->real_escape_string($_POST['meta-title']);
+                  $meta_keywords = $db->getConnection()->real_escape_string($_POST['meta-keywords']);
+
+                  if($countFiles > 0)
+                  {
+                    $query = "UPDATE posts
+                              SET title='$title', content='$content', seo_title='$seo_title',
+                              meta_title='$meta_title', meta_keywords='$meta_keywords', images='$fileBlob' WHERE id=$row_id";
+                  }
+                  else
+                  {
+                    $query = "UPDATE posts
+                              SET title='$title', content='$content', seo_title='$seo_title',
+                              meta_title='$meta_title', meta_keywords='$meta_keywords' WHERE id=$row_id";
+                  }
+
+                  $location = "../views/post-manager.php";
                   break;
 
       case 'pagemanager-delete':
@@ -47,11 +143,29 @@
                   $location = "../views/image-manager.php";
                   break;
 
+      case 'slidermanager-delete':
+                  $row_id = $_GET['row_id'];
+                  $query = "DELETE FROM slides WHERE slides.id=$row_id";
+                  $location = "../views/slider-manager.php";
+                  break;
+
+      case 'postmanager-delete':
+                  $row_id = $_GET['row_id'];
+                  $query = "DELETE FROM posts WHERE posts.id=$row_id";
+                  $location = "../views/post-manager.php";
+                  break;
+
       case 'list-images-delete':
                   $row_id = $_GET['row_id'];
                   $image_row_id = $_GET['image_row_id'];
                   $query = "DELETE FROM images WHERE images.id=$image_row_id";
                   $location = "../views/list-images.php?row_id=$row_id";
+                  break;
+
+      case 'subscribers-delete':
+                  $row_id = $_GET['row_id'];
+                  $query = "DELETE FROM subscribers WHERE subscribers.id=$row_id";
+                  $location = "../views/newsletter-subscribers.php";
                   break;
 
       case 'create-user':
@@ -280,6 +394,39 @@
                     $query = "";
                     $location = "../../public/request-quote.php";
                     
+                    break;
+
+      case 'contact-us':
+                    $name = $_POST['name'];
+                    $email = $_POST['email'];
+                    $phone = $_POST['phone'];
+                    $message = (function() {
+                      if(isset($_POST['message']))
+                        return $_POST['message'];
+                      else
+                        return null;
+                    })();
+
+                    $emailMessage = "Hi, Admin <br>
+                                Name: $name<br>,
+                                Email: $email<br>,
+                                Phone: $phone<br>,
+                                Message: $message<br>
+                                <br>
+                                Thank You,
+                                CMS.";
+
+                    sendMail($from, $to, $subject, $emailMessage);
+
+                    $query = "";
+                    $location = "../../public/contact-us.php?attempt=success";
+                    break;
+
+      case 'newsubscription':
+                    $email = $_POST['email'];
+                    $query = "INSERT INTO subscribers(email) VALUES ('$email')";
+
+                    $location = "../../public/newsletter-subscription.php?attempt=success";
                     break;
 
     }

@@ -11,10 +11,12 @@
 
 <?php
   logoFooterSiteUrl(); 
+  footerPages();
 
   $logo = $_SESSION['logo'];
   $footer = $_SESSION['footer'];
   $site_url = $_SESSION['site-url'];
+  $footer_pages = $_SESSION['footer-pages'];
 
   if(!isset($_SESSION['row'])) {
     header("Location: $site_url/admin/controllers/data.php?request=public-pages");
@@ -23,8 +25,8 @@
 
   $pages = $_SESSION['row'];
 
-
   unset($_SESSION['row']);
+  unset($_SESSION['footer-pages']);
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
   unset($_SESSION['site-url']);
@@ -55,7 +57,10 @@
           <img src="<?php echo $site_url ?>/admin/resources/static/images/logo.png" width="30" height="30" alt="cms-logo">
         </a>
         <a href="request-quote.php" class="request-quote">
-          <i class="fa fa-envelope-o" aria-hidden="true"><span class="request-quote-text"> Request Quote</span></i>
+          <i class="fa fa-envelope-o request-quote-text" aria-hidden="true"><span> Request Quote</span></i>
+        </a>
+        <a href="contact-us.php" class="contact-us">
+          <i class="fa fa-users contact-us-text" aria-hidden="true"><span> Contact Us</span></i>
         </a>
       </nav>
 
@@ -127,6 +132,8 @@
             if(!isset($pages[3 * $i + $j][0]))
               break;
 
+            if($pages[3 * $i + $j][3] == -2)
+              continue;
 
             echo "<div class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#333;'>";
@@ -151,8 +158,15 @@
     
     <!--footer begins-->
     <div id="footer">
-      <div class="container-fluid">
-        <p class="footer-block">CMS &copy; CMS 2017</p>
+      <div class="row">
+          <p class="footer-block col-sm-2">CMS &copy; CMS 2017</p>
+        <div style="padding-top: 1%;">
+          <?php for($i = 0; $i < count($footer_pages); $i++)
+          {
+            echo "<a href='#' style='color: #fff; text-decoration: none;'>&nbsp;{$footer_pages[$i][0]}&nbsp;&nbsp;</a>";
+          }
+          ?>
+        </div>
       </div>
     </div>
     <!--footer ends-->

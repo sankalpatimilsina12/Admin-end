@@ -18,14 +18,20 @@ body {
 .request-quote {
   position: fixed;
   top: 2.5%;
+  right: 11.8%;
+  color: #999;
+}
+.contact-us {
+  position: fixed;
+  top: 2.5%;
   right: 3.8%;
   color: #999;
 }
-.request-quote-text { 
+.request-quote-text, .contact-us-text { 
   font-family: sans-serif;
   font-size: 14px;
 }
-.request-quote:hover {
+.request-quote:hover, .contact-us-text:hover {
   color: #fff;
 }
 .right-container {
