@@ -121,8 +121,9 @@
             if(!isset($row[3 * $i + $j][1]))
               break;
             
+            $admin_box_id = 3 * $i + $j;  
 
-            echo "<div class='col-sm-4' style='padding: 2%'>";
+            echo "<div id=\"$admin_box_id\" class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#333;'>";
             echo "<div class='card-block' style='position: relative; height: 40%;'>";
             $userName = trim($row[3 * $i + $j][1], "@gmail.com");
@@ -131,7 +132,7 @@
             $row_id = $row[3 * $i + $j][0];
             echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-user/$row_id'>Edit User</a>";
             echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=delete-user&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'deleteRow(3 * $i + $j, $row_id);' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;'>Delete</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -155,3 +156,25 @@
   </body>
   <!--body ends-->
 </html>
+<script>
+  function deleteRow(admin_box_id, admin_id) {
+    var confirmResult = confirm("Are you sure?");
+
+    if(confirmResult) {
+      var site_url = "<?php echo $site_url; ?>";
+      $.ajax({
+        type: "post",
+        url: site_url + '/admin/views/ajax-data.php',
+        cache: false,
+        data: {admin_id: admin_id},
+        success: function(data) {
+          if(data == 1)
+          {
+            var child = document.getElementById(admin_box_id);
+            child.parentNode.removeChild(child);
+          }
+        }
+      });
+    }
+  }
+</script>

@@ -25,9 +25,14 @@
   $site_url = $_SESSION['site-url'];
 
   $db = new Connect;
-  $query = "SELECT id, title, text, parent_id FROM pages";
+  $query = "SELECT id, title, text, parent_id FROM pages WHERE pages.parent_id != -2";
   $result = mysqli_query($db->getConnection(), $query);
-  $row = $result->fetch_all();
+  $non_footer_pages = $result->fetch_all();
+
+
+  $query = "SELECT id, title, text, parent_id FROM pages WHERE pages.parent_id = -2";
+  $result = mysqli_query($db->getConnection(), $query);
+  $footer_pages = $result->fetch_all();
 
   unset($_SESSION['logo']);
   unset($_SESSION['footer']);
@@ -114,26 +119,30 @@
           </div>
         </div>
 
-        <?php for($i = 0; $i < ceil(count($row)/3); $i++) {
+        <?php 
+          for($i = 0; $i < ceil(count($non_footer_pages)/3); $i++) {
           echo "<div class='row'>";
 
           for($j = 0; $j < 3; $j++) {
 
-            if(!isset($row[3 * $i + $j][1]))
+            if(!isset($non_footer_pages[3 * $i + $j][1]))
               break;
             
-            if($row[3 * $i + $j][3] == -2)
+            if($non_footer_pages[3 * $i + $j][3] == -2)
               continue;
 
-            echo "<div class='col-sm-4' style='padding: 2%'>";
+            $page_box_id = 3 * $i + $j;
+
+            echo "<div id=\"$page_box_id\" class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#333;'>";
             echo "<div class='card-block' style='position: relative; height: 40%;'>";
-            echo "<h3 class='card-title'>{$row[3 * $i + $j][1]}</h3>";
-            echo "<p class='card-text'>{$row[3 * $i + $j][2]}</p>";
-            $row_id = $row[3 * $i + $j][0];
+            echo "<h3 class='card-title'>{$non_footer_pages[3 * $i + $j][1]}</h3>";
+            echo "<p class='card-text'>{$non_footer_pages[3 * $i + $j][2]}</p>";
+            $row_id = $non_footer_pages[3 * $i + $j][0];
             echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-page/$row_id'>Edit page</a>";
             echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
+            // echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'deleteRow(3*$i+$j, $row_id);' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;'>Delete</a>";
             echo "<a role='button' class='btn btn-warning' style='position: absolute; left: 66.8%; bottom: 6%;' href='list-images/row/$row_id'>Images</a>";
             echo "</div>";
             echo "</div>";
@@ -154,26 +163,29 @@
           </div>
         </div>
 
-        <?php for($i = 0; $i < ceil(count($row)/3); $i++) {
+        <?php for($i = 0; $i < ceil(count($footer_pages)/3); $i++) {
           echo "<div class='row'>";
 
           for($j = 0; $j < 3; $j++) {
 
-            if(!isset($row[3 * $i + $j][1]))
+            if(!isset($footer_pages[3 * $i + $j][1]))
               break;
             
-            if($row[3 * $i + $j][3] != -2)
+            if($footer_pages[3 * $i + $j][3] != -2)
               continue;
 
-            echo "<div class='col-sm-4' style='padding: 2%'>";
+            $page_box_id = 3 * $i + $j;
+
+            echo "<div id=\"$page_box_id\" class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#333;'>";
             echo "<div class='card-block' style='position: relative; height: 40%;'>";
-            echo "<h3 class='card-title'>{$row[3 * $i + $j][1]}</h3>";
-            echo "<p class='card-text'>{$row[3 * $i + $j][2]}</p>";
-            $row_id = $row[3 * $i + $j][0];
+            echo "<h3 class='card-title'>{$footer_pages[3 * $i + $j][1]}</h3>";
+            echo "<p class='card-text'>{$footer_pages[3 * $i + $j][2]}</p>";
+            $row_id = $footer_pages[3 * $i + $j][0];
             echo "<a role='button' class='btn btn-primary' style='position: absolute; bottom:6%;' href='edit-page/$row_id'>Edit page</a>";
             echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
+            // echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=pagemanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'deleteRow(3*$i+$j, $row_id);' class='btn btn-danger' style='position: absolute; left: 40%; bottom: 6%;'>Delete</a>";
             echo "<a role='button' class='btn btn-warning' style='position: absolute; left: 66.8%; bottom: 6%;' href='list-images/row/$row_id'>Images</a>";
             echo "</div>";
             echo "</div>";
@@ -201,3 +213,27 @@
   <!--body ends-->
 
 </html>
+
+
+<script>
+  function deleteRow(page_box_id, page_id) {
+    var confirmResult = confirm("Are you sure?");
+
+    if(confirmResult) {
+      var site_url = "<?php echo $site_url; ?>";
+      $.ajax({
+        type: "post",
+        url: site_url + '/admin/views/ajax-data.php',
+        cache: false,
+        data: {page_id: page_id},
+        success: function(data) {
+          if(data == 1)
+          {
+            var child = document.getElementById(page_box_id);
+            child.parentNode.removeChild(child);
+          }
+        }
+      });
+    }
+  }
+</script>

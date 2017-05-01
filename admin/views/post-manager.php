@@ -126,7 +126,9 @@
             $images = explode(",", $row[2 * $i + $j][8]);
             array_pop($images);
 
-            echo "<div class='col-sm-6'>";
+            $post_box_id = 2 * $i + $j;
+
+            echo "<div id=\"$post_box_id\" class='col-sm-6'>";
             echo "<div class='card card-inverse' style='background-color:#ececd6;'>";
             echo "<div>";
             for($k = 0; $k < count($images); $k++) {
@@ -149,7 +151,7 @@
             echo "</div>";
             $row_id = $row[2 * $i + $j][0];
             echo "<a role='button' class='btn btn-primary col-sm-5' style='left: 0%; ' href='$site_url/admin/views/edit-post.php?row_id=$row_id'>Edit Post</a>";
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger col-sm-5' style='right: -11%;' href='$site_url/admin/controllers/manager.php?request=postmanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'deleteRow(2 * $i + $j, $row_id);' class='btn btn-danger col-sm-5' style='right: -11%;'>Delete</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -175,3 +177,26 @@
   <!--body ends-->
 
 </html>
+
+<script>
+  function deleteRow(post_box_id, post_id) {
+    var confirmResult = confirm("Are you sure?");
+
+    if(confirmResult) {
+      var site_url = "<?php echo $site_url; ?>";
+      $.ajax({
+        type: "post",
+        url: site_url + '/admin/views/ajax-data.php',
+        cache: false,
+        data: {post_id: post_id},
+        success: function(data) {
+          if(data == 1)
+          {
+            var child = document.getElementById(post_box_id);
+            child.parentNode.removeChild(child);
+          }
+        }
+      });
+    }
+  }
+</script>

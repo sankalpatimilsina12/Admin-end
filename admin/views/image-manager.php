@@ -29,7 +29,7 @@
   $result = mysqli_query($db->getConnection(), $query);
   $row = $result->fetch_all();
 
-  $query = "SELECT title FROM pages";
+  $query = "SELECT title FROM pages WHERE pages.parent_id != -2";
   $result_page = mysqli_query($db->getConnection(), $query);
   $page_row = $result_page->fetch_all();
 
@@ -128,13 +128,14 @@
             if(!isset($row[3 * $i + $j][1]))
               break;
             
+            $image_box_id = 3 * $i + $j;
 
-            echo "<div class='col-sm-4' style='padding: 2%'>";
+            echo "<div id=\"$image_box_id\" class='col-sm-4' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#ececd6;'>";
             echo "<img class'card-img-top style='width: 100%; height: 40%' src='$site_url/admin/resources/static/images/uploads/{$row[3 * $i + $j][1]}' alt='img'>";
             echo "<div class='card-block' style='position: relative; height: 15%;'>";
             $row_id = $row[3 * $i + $j][0];
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger col-sm-6' style='position: absolute; left: 25%; bottom: 25%;' href='$site_url/admin/controllers/manager.php?request=imagemanager-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'deleteRow(3 * $i + $j, $row_id);' class='btn btn-danger col-sm-6' style='position: absolute; left: 25%; bottom: 25%;'>Delete</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -161,3 +162,26 @@
   <!--body ends-->
 
 </html>
+
+<script>
+  function deleteRow(image_box_id, image_id) {
+    var confirmResult = confirm("Are you sure?");
+
+    if(confirmResult) {
+      var site_url = "<?php echo $site_url; ?>";
+      $.ajax({
+        type: "POST",
+        url: site_url + '/admin/views/ajax-data.php',
+        cache: false,
+        data: {image_id: image_id},
+        success: function(data) {
+          if(data == 1)
+          {
+            var child = document.getElementById(image_box_id);
+            child.parentNode.removeChild(child);
+          }
+        }
+      });
+    }
+  }
+</script>

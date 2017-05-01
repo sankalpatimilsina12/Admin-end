@@ -57,7 +57,7 @@
           <i class="fa fa-envelope-o" aria-hidden="true"><span class="request-quote-text"> Request Quote</span></i>
         </a>
         <a href="contact-us.php" class="contact-us">
-          <i class="fa fa-users request-quote-text" aria-hidden="true"><span> Contact Us</span></i>
+          <i class="fa fa-users request-quote-text" aria-hidden="true"><span class="contact-us-text"> Contact Us</span></i>
         </a>
       </nav>
 
@@ -140,11 +140,11 @@
               <div class="form-group">
                 <label class="control-label col-sm-6"><i class="fa fa-globe" aria-hidden="true"></i><strong> Country:</strong></label>
                 <div class="col-sm-12">
-                  <select class="form-control" name="country">
+                  <select onchange="updateState(this)" class="form-control" name="country">
                     <option disabled selected>Select Country</option>
                     <?php for($i = 0; $i < count($row); $i++) {
                       if(isset($row[$i][0])) {
-                        echo "<option>{$row[$i][0]} {$row[$i][1]}</option>";
+                        echo "<option value=\"{$row[$i][0]}\">{$row[$i][1]} {$row[$i][2]}</option>";
                       }
                     }
                     ?>
@@ -154,7 +154,9 @@
               <div class="form-group">
                 <label class="control-label col-sm-6"><i class="fa fa-location-arrow" aria-hidden="true"></i><strong> State/Province:</strong></label>
                 <div class="col-sm-12">
-                  <input class="form-control" name="state-province">
+                  <select id="state-select" class="form-control" name="country">
+                    <option disabled selected>Select State</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -255,6 +257,34 @@
   </script>
 
 </html>
+
+<!--State Update-->
+<script>
+  function updateState(sel) {
+    var site_url = "<?php echo $site_url; ?>";
+    var sel_id = sel.options[sel.selectedIndex].value;
+    var select = document.getElementById("state-select");
+
+    select.innerHTML = "";
+
+    $.ajax({
+      type: "POST",
+      url: site_url + '/public/ajax-data.php',
+      cache: false,
+      data: {sel_id: sel_id},
+      success: function(data) {
+        data = JSON.parse(data);
+        for(let i = 0; i < data.length; i++)
+        {
+          var opt = document.createElement('option');
+          opt.innerHTML = data[i];
+          opt.value = data[i];
+          select.appendChild(opt);
+        }
+      }
+    });
+  }
+</script>
 
 
 <!--Validation script-->

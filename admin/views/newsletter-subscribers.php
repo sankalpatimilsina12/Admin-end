@@ -122,14 +122,15 @@
             if(!isset($row[2 * $i + $j][1]))
               break;
             
+            $subscriber_id = 2 * $i + $j;
 
-            echo "<div class='col-sm-6' style='padding: 2%'>";
+            echo "<div id=\"$subscriber_id\" class='col-sm-6' style='padding: 2%'>";
             echo "<div class='card card-inverse' style='background-color:#333;'>";
             echo "<div class='card-block' style='position: relative; height: 40%;'>";
             echo "<h3 class='card-title'>{$row[2 * $i + $j][1]}</h3>";
             echo "<p class='card-text'><strong>Subscribed Date: </strong>{$row[2 * $i + $j][2]}</p>";
             $row_id = $row[2 * $i + $j][0];
-            echo "<a role='button' onclick = 'return confirm(\'Are you sure?\');' class='btn btn-danger col-sm-11' style='position: absolute; left: 4%; bottom: 6%;' href='$site_url/admin/controllers/manager.php?request=subscribers-delete&row_id=$row_id'>Delete</a>";
+            echo "<a role='button' onclick = 'deleteRow(2 * $i + $j, $row_id);' class='btn btn-danger col-sm-11' style='position: absolute; left: 4%; bottom: 6%;'>Delete</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -156,3 +157,26 @@
   <!--body ends-->
 
 </html>
+
+<script>
+  function deleteRow(subscribe_box_id, subscriber_id) {
+    var confirmResult = confirm("Are you sure?");
+
+    if(confirmResult) {
+      var site_url = "<?php echo $site_url; ?>";
+      $.ajax({
+        type: "post",
+        url: site_url + '/admin/views/ajax-data.php',
+        cache: false,
+        data: {subscriber_id: subscriber_id},
+        success: function(data) {
+          if(data == 1)
+          {
+            var child = document.getElementById(subscribe_box_id);
+            child.parentNode.removeChild(child);
+          }
+        }
+      });
+    }
+  }
+</script>

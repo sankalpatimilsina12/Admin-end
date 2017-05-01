@@ -59,7 +59,7 @@
                   break;
 
     case 'public-pages':
-                  $query = "SELECT id, title, text, parent_id FROM pages";
+                  $query = "SELECT id, title, text, parent_id FROM pages WHERE pages.id != -2";
                   $result = mysqli_query($db->getConnection(), $query);
                   $row = $result->fetch_all();
 
@@ -79,7 +79,7 @@
                   break;
 
     case 'request-quote':
-                  $query = "SELECT name, code FROM tbl_country";
+                  $query = "SELECT id, name, sortname FROM tbl_country";
                   $result = mysqli_query($db->getConnection(), $query);
                   $row = $result->fetch_all();
 

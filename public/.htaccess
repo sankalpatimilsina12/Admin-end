@@ -1,0 +1,2 @@
+RewriteEngine On
+  RewriteRule ^CMS/& index.php [L,QSA]

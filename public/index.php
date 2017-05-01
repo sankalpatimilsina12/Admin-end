@@ -1,3 +1,4 @@
+
 <!--
   The index page shows the basic site interface
   to public users.
@@ -75,10 +76,10 @@
         </a>
 
         <a href="request-quote.php" class="request-quote">
-          <i class="fa fa-envelope-o request-quote-text" aria-hidden="true"><span> Request Quote</span></i>
+          <i class="fa fa-envelope-o request-quote-text" aria-hidden="true"><span class="request-quote-text"> Request Quote</span></i>
         </a>
         <a href="contact-us.php" class="contact-us">
-          <i class="fa fa-users contact-us-text" aria-hidden="true"><span> Contact Us</span></i>
+          <i class="fa fa-users contact-us-text" aria-hidden="true"><span class="contact-us-text"> Contact Us</span></i>
         </a>
       </nav>
 
