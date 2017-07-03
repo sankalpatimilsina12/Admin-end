@@ -165,70 +165,68 @@
     </div>
     <!--container-fluid ends-->
 
+    <script>
+      $('.datepicker').datepicker({
+          startDate: '-3d',
+          todayHighlight: true
+      });
+    </script>
+
+    <!--Validation script-->
+    <script>
+      function validate() {
+        document.getElementById("name-error").innerHTML = "";
+        document.getElementById("email-error").innerHTML = "";
+        document.getElementById("phone-error").innerHTML = "";
+
+        var flag = true;
+
+        if(document.getElementsByName("name")[0].value == "") {
+          document.getElementById("name-error").innerHTML = "Name required!";
+          flag = false;
+        }
+        
+        if(document.getElementsByName("email")[0].value == "") {
+          document.getElementById("email-error").innerHTML = "Last name required!";
+          flag = false;
+        }
+
+        if(!validatePhone(document.getElementsByName("phone")[0].value)) {
+          document.getElementById("phone-error").innerHTML = "Invalid phone!";
+          flag = false;
+        }
+
+        return flag;
+      }
+    </script>
+
+    <script>
+      function validatePhone(phone) {
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+        return re.test(phone);
+
+      }
+      
+      function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+    </script>
+
+    <script>
+      window.onload = function() {
+        var attempt = "<?php echo $attempt; ?>";
+
+        if(attempt == "success")
+        {
+          var successBox = document.getElementById("contact-attempt");
+          successBox.innerHTML = "SUCCESS";
+          successBox.style.color = "green";
+          successBox.style.fontSize = "20px";
+        }
+      }
+    </script>
   </body>
-
-  <script>
-    $('.datepicker').datepicker({
-        startDate: '-3d',
-        todayHighlight: true
-    });
-  </script>
-
+  <!--body ends-->
 </html>
 
-
-<!--Validation script-->
-<script>
-  function validate() {
-    document.getElementById("name-error").innerHTML = "";
-    document.getElementById("email-error").innerHTML = "";
-    document.getElementById("phone-error").innerHTML = "";
-
-    var flag = true;
-
-    if(document.getElementsByName("name")[0].value == "") {
-      document.getElementById("name-error").innerHTML = "Name required!";
-      flag = false;
-    }
-    
-    if(document.getElementsByName("email")[0].value == "") {
-      document.getElementById("email-error").innerHTML = "Last name required!";
-      flag = false;
-    }
-
-    if(!validatePhone(document.getElementsByName("phone")[0].value)) {
-      document.getElementById("phone-error").innerHTML = "Invalid phone!";
-      flag = false;
-    }
-
-    return flag;
-  }
-</script>
-
-
-<script>
-  function validatePhone(phone) {
-    var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    return re.test(phone);
-
-  }
-  
-  function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-</script>
-
-<script>
-  window.onload = function() {
-    var attempt = "<?php echo $attempt; ?>";
-
-    if(attempt == "success")
-    {
-      var successBox = document.getElementById("contact-attempt");
-      successBox.innerHTML = "SUCCESS";
-      successBox.style.color = "green";
-      successBox.style.fontSize = "20px";
-    }
-  }
-</script>

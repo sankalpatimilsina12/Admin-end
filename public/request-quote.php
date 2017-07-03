@@ -247,90 +247,88 @@
     </div>
     <!--container-fluid ends-->
 
-  </body>
+    <script>
+      $('.datepicker').datepicker({
+          startDate: '-3d',
+          todayHighlight: true
+      });
+    </script>
 
-  <script>
-    $('.datepicker').datepicker({
-        startDate: '-3d',
-        todayHighlight: true
-    });
-  </script>
+    <!--State Update-->
+    <script>
+      function updateState(sel) {
+        var site_url = "<?php echo $site_url; ?>";
+        var sel_id = sel.options[sel.selectedIndex].value;
+        var select = document.getElementById("state-select");
 
-</html>
+        select.innerHTML = "";
 
-<!--State Update-->
-<script>
-  function updateState(sel) {
-    var site_url = "<?php echo $site_url; ?>";
-    var sel_id = sel.options[sel.selectedIndex].value;
-    var select = document.getElementById("state-select");
-
-    select.innerHTML = "";
-
-    $.ajax({
-      type: "POST",
-      url: site_url + '/public/ajax-data.php',
-      cache: false,
-      data: {sel_id: sel_id},
-      success: function(data) {
-        data = JSON.parse(data);
-        for(let i = 0; i < data.length; i++)
-        {
-          var opt = document.createElement('option');
-          opt.innerHTML = data[i];
-          opt.value = data[i];
-          select.appendChild(opt);
-        }
+        $.ajax({
+          type: "POST",
+          url: site_url + '/public/ajax-data.php',
+          cache: false,
+          data: {sel_id: sel_id},
+          success: function(data) {
+            data = JSON.parse(data);
+            for(let i = 0; i < data.length; i++)
+            {
+              var opt = document.createElement('option');
+              opt.innerHTML = data[i];
+              opt.value = data[i];
+              select.appendChild(opt);
+            }
+          }
+        });
       }
-    });
-  }
-</script>
+    </script>
 
 
-<!--Validation script-->
-<script>
-  function validate() {
-    document.getElementById("first-name-error").innerHTML = "";
-    document.getElementById("last-name-error").innerHTML = "";
-    document.getElementById("phone-error").innerHTML = "";
-    document.getElementById("email-error").innerHTML = "";
+    <!--Validation script-->
+    <script>
+      function validate() {
+        document.getElementById("first-name-error").innerHTML = "";
+        document.getElementById("last-name-error").innerHTML = "";
+        document.getElementById("phone-error").innerHTML = "";
+        document.getElementById("email-error").innerHTML = "";
 
-    var flag = true;
+        var flag = true;
 
-    if(document.getElementsByName("first-name")[0].value == "") {
-      document.getElementById("first-name-error").innerHTML = "First name required!";
-      flag = false;
-    }
-    
-    if(document.getElementsByName("last-name")[0].value == "") {
-      document.getElementById("last-name-error").innerHTML = "Last name required!";
-      flag = false;
-    }
+        if(document.getElementsByName("first-name")[0].value == "") {
+          document.getElementById("first-name-error").innerHTML = "First name required!";
+          flag = false;
+        }
+        
+        if(document.getElementsByName("last-name")[0].value == "") {
+          document.getElementById("last-name-error").innerHTML = "Last name required!";
+          flag = false;
+        }
 
-    if(!validatePhone(document.getElementsByName("phone")[0].value)) {
-      document.getElementById("phone-error").innerHTML = "Invalid phone!";
-      flag = false;
-    }
+        if(!validatePhone(document.getElementsByName("phone")[0].value)) {
+          document.getElementById("phone-error").innerHTML = "Invalid phone!";
+          flag = false;
+        }
 
-    if(!validateEmail(document.getElementsByName("email")[0].value)) {
-      document.getElementById("email-error").innerHTML = "Invalid email!";
-      flag = false;
-    }
+        if(!validateEmail(document.getElementsByName("email")[0].value)) {
+          document.getElementById("email-error").innerHTML = "Invalid email!";
+          flag = false;
+        }
 
-    return flag;
-  }
-</script>
+        return flag;
+      }
+    </script>
 
 
-<script>
-  function validatePhone(phone) {
-    var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    return re.test(phone);
+    <script>
+      function validatePhone(phone) {
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+        return re.test(phone);
 
-  }
-  
-  function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-</script>
+      }
+      
+      function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+    </script>
+  </body>
+</html>

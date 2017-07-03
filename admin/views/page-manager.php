@@ -208,32 +208,28 @@
       
     </div>
     <!--container-fluid ends-->
+    <script>
+      function deleteRow(page_box_id, page_id) {
+        var confirmResult = confirm("Are you sure?");
 
+        if(confirmResult) {
+          var site_url = "<?php echo $site_url; ?>";
+          $.ajax({
+            type: "post",
+            url: site_url + '/admin/views/ajax-data.php',
+            cache: false,
+            data: {page_id: page_id},
+            success: function(data) {
+              if(data == 1)
+              {
+                var child = document.getElementById(page_box_id);
+                child.parentNode.removeChild(child);
+              }
+            }
+          });
+        }
+      }
+    </script>
   </body>
   <!--body ends-->
-
 </html>
-
-
-<script>
-  function deleteRow(page_box_id, page_id) {
-    var confirmResult = confirm("Are you sure?");
-
-    if(confirmResult) {
-      var site_url = "<?php echo $site_url; ?>";
-      $.ajax({
-        type: "post",
-        url: site_url + '/admin/views/ajax-data.php',
-        cache: false,
-        data: {page_id: page_id},
-        success: function(data) {
-          if(data == 1)
-          {
-            var child = document.getElementById(page_box_id);
-            child.parentNode.removeChild(child);
-          }
-        }
-      });
-    }
-  }
-</script>

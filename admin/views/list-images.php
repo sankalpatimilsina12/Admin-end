@@ -156,15 +156,12 @@
       <!--footer ends-->
     </div>
     <!--container-fluid ends-->
+    <!--Show image loaded on load-->
+    <script>
+    document.getElementById("file").onchange = function () {
+      document.getElementById("image-submit-form").submit();
+    }
+    </script>
   </body>
   <!--body ends-->
 </html>
-
-
-
-<!--Show image loaded on load-->
-<script>
-document.getElementById("file").onchange = function () {
-  document.getElementById("image-submit-form").submit();
-}
-</script>

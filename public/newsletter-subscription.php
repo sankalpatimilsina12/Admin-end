@@ -127,37 +127,36 @@
     </div>
     <!--container-fluid ends-->
 
+    <script>
+      window.onload = function() {
+        var attempt = "<?php echo $attempt; ?>";
+
+        if(attempt == "success")
+        {
+          var successBox = document.getElementById("subscription-attempt");
+          successBox.innerHTML = "SUBSCRIPTION ADDED";
+          successBox.style.color = "green";
+          successBox.style.fontSize = "20px";
+        }
+      }
+    </script>
+
+    <!--Email Validation-->
+    <script>
+    function validate() {
+      var email = document.getElementById("email").value;
+
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      var isEmailValid = re.test(email);
+
+      if(!isEmailValid)
+        document.getElementById("email-error").innerHTML = "Invalid email";
+
+      return re.test(email);
+    }
+    </script>
   </body>
   <!--body ends-->
 </html>
 
-
-<script>
-  window.onload = function() {
-    var attempt = "<?php echo $attempt; ?>";
-
-    if(attempt == "success")
-    {
-      var successBox = document.getElementById("subscription-attempt");
-      successBox.innerHTML = "SUBSCRIPTION ADDED";
-      successBox.style.color = "green";
-      successBox.style.fontSize = "20px";
-    }
-  }
-</script>
-
-<!--Email Validation-->
-<script>
-function validate() {
-  var email = document.getElementById("email").value;
-
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  var isEmailValid = re.test(email);
-
-  if(!isEmailValid)
-    document.getElementById("email-error").innerHTML = "Invalid email";
-
-  return re.test(email);
-}
-</script>

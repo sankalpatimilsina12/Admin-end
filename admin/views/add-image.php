@@ -139,28 +139,27 @@
 
     </div>
     <!--container ends-->
+    <script>
+      document.getElementById("file").onchange = function () {
+        document.getElementById("add-image").innerHTML = "Image Loaded."
+        var imageName = document.getElementById("file").value.substr(12);
+        document.getElementById("selected-image").src = "<?php echo $site_url ?>/admin/resources/static/images/uploads/" + imageName;
+      }
+    </script>
+
+    <!--Listen for the file upload event-->
+    <script>
+      function isImageLoaded() {
+
+        if(document.getElementById("file").value == "") {
+          document.getElementById("add-image").innerHTML = "Please select image to upload.";
+
+          return false;
+        }
+
+        return true;
+      }
+    </script>
   </body>
   <!--body ends-->
 </html>
-
-<script>
-  document.getElementById("file").onchange = function () {
-    document.getElementById("add-image").innerHTML = "Image Loaded."
-    var imageName = document.getElementById("file").value.substr(12);
-    document.getElementById("selected-image").src = "<?php echo $site_url ?>/admin/resources/static/images/uploads/" + imageName;
-  }
-</script>
-
-<!--Listen for the file upload event-->
-<script>
-  function isImageLoaded() {
-
-    if(document.getElementById("file").value == "") {
-      document.getElementById("add-image").innerHTML = "Please select image to upload.";
-
-      return false;
-    }
-
-    return true;
-  }
-</script>

@@ -94,24 +94,22 @@
         <p class="footer-block">CMS &copy; CMS 2017</p>
     </div>
     <!--footer ends-->
-    
+    <!--
+    Displays error message for unsuccessful login attempts.
+    Populates the email and password form field if cookie is set.
+    -->
+    <script>
+      window.onload = function() {
+        var loginUnSuccess = "<?php echo isset($_GET['login_success']); ?>";
+
+        if(loginUnSuccess) {
+          document.getElementById("login-unsuccess-informer").innerHTML = "Invalid email or password";
+        }
+
+        document.getElementById("email").value = getCookie("email");
+        document.getElementById("password").value = getCookie("password");
+      }
+    </script>
   </body>
   <!--body ends-->
 </html>
-
-<!--
-Displays error message for unsuccessful login attempts.
-Populates the email and password form field if cookie is set.
--->
-<script>
-  window.onload = function() {
-    var loginUnSuccess = "<?php echo isset($_GET['login_success']); ?>";
-
-    if(loginUnSuccess) {
-      document.getElementById("login-unsuccess-informer").innerHTML = "Invalid email or password";
-    }
-
-    document.getElementById("email").value = getCookie("email");
-    document.getElementById("password").value = getCookie("password");
-  }
-</script>

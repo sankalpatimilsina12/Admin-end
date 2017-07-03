@@ -153,31 +153,28 @@
       
     </div>
     <!--container-fluid ends-->
+    <script>
+      function deleteRow(slide_box_id, slide_id) {
+        var confirmResult = confirm("Are you sure?");
 
+        if(confirmResult) {
+          var site_url = "<?php echo $site_url; ?>";
+          $.ajax({
+            type: "POST",
+            url: site_url + '/admin/views/ajax-data.php',
+            cache: false,
+            data: {slide_id: slide_id},
+            success: function(data) {
+              if(data == 1)
+              {
+                var child = document.getElementById(slide_box_id);
+                child.parentNode.removeChild(child);
+              }
+            }
+          });
+        }
+      }
+    </script>
   </body>
   <!--body ends-->
-
 </html>
-
-<script>
-  function deleteRow(slide_box_id, slide_id) {
-    var confirmResult = confirm("Are you sure?");
-
-    if(confirmResult) {
-      var site_url = "<?php echo $site_url; ?>";
-      $.ajax({
-        type: "POST",
-        url: site_url + '/admin/views/ajax-data.php',
-        cache: false,
-        data: {slide_id: slide_id},
-        success: function(data) {
-          if(data == 1)
-          {
-            var child = document.getElementById(slide_box_id);
-            child.parentNode.removeChild(child);
-          }
-        }
-      });
-    }
-  }
-</script>

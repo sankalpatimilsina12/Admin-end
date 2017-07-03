@@ -138,35 +138,33 @@
         <p class="footer-block"><?php echo $footer ?></p>
     </div>
     <!--footer ends-->
+    <!--validation script-->
+    <script>
+      function validate() {
+        document.getElementById("title-error").innerHTML = "";
+        document.getElementById("text-error").innerHTML = "";
 
+        var flag = true;
+
+        if(document.getElementById("title").value == "") {
+          document.getElementById("title-error").innerHTML = "Title field empty!";
+          flag = false;
+        }
+
+        if(document.getElementById("text").value == "") {
+          document.getElementById("text-error").innerHTML = "Text field empty!";
+          flag = false;
+        }
+
+        return flag;
+      }
+    </script>
+
+    <script>
+      document.getElementById("file").onchange = function () {
+        document.getElementById("add-image").innerHTML = "Image Loaded."
+      }
+    </script>
   </body>
   <!--body ends-->
 </html>
-
-<!--validation script-->
-<script>
-  function validate() {
-    document.getElementById("title-error").innerHTML = "";
-    document.getElementById("text-error").innerHTML = "";
-
-    var flag = true;
-
-    if(document.getElementById("title").value == "") {
-      document.getElementById("title-error").innerHTML = "Title field empty!";
-      flag = false;
-    }
-
-    if(document.getElementById("text").value == "") {
-      document.getElementById("text-error").innerHTML = "Text field empty!";
-      flag = false;
-    }
-
-    return flag;
-  }
-</script>
-
-<script>
-  document.getElementById("file").onchange = function () {
-    document.getElementById("add-image").innerHTML = "Image Loaded."
-  }
-</script>

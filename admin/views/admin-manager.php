@@ -153,28 +153,28 @@
 
     </div>
     <!--container-fluid ends-->
+    <script>
+      function deleteRow(admin_box_id, admin_id) {
+        var confirmResult = confirm("Are you sure?");
+
+        if(confirmResult) {
+          var site_url = "<?php echo $site_url; ?>";
+          $.ajax({
+            type: "post",
+            url: site_url + '/admin/views/ajax-data.php',
+            cache: false,
+            data: {admin_id: admin_id},
+            success: function(data) {
+              if(data == 1)
+              {
+                var child = document.getElementById(admin_box_id);
+                child.parentNode.removeChild(child);
+              }
+            }
+          });
+        }
+      }
+    </script>
   </body>
   <!--body ends-->
 </html>
-<script>
-  function deleteRow(admin_box_id, admin_id) {
-    var confirmResult = confirm("Are you sure?");
-
-    if(confirmResult) {
-      var site_url = "<?php echo $site_url; ?>";
-      $.ajax({
-        type: "post",
-        url: site_url + '/admin/views/ajax-data.php',
-        cache: false,
-        data: {admin_id: admin_id},
-        success: function(data) {
-          if(data == 1)
-          {
-            var child = document.getElementById(admin_box_id);
-            child.parentNode.removeChild(child);
-          }
-        }
-      });
-    }
-  }
-</script>

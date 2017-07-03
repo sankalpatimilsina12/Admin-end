@@ -152,31 +152,28 @@
       
     </div>
     <!--container-fluid ends-->
+    <script>
+      function deleteRow(subscribe_box_id, subscriber_id) {
+        var confirmResult = confirm("Are you sure?");
 
+        if(confirmResult) {
+          var site_url = "<?php echo $site_url; ?>";
+          $.ajax({
+            type: "post",
+            url: site_url + '/admin/views/ajax-data.php',
+            cache: false,
+            data: {subscriber_id: subscriber_id},
+            success: function(data) {
+              if(data == 1)
+              {
+                var child = document.getElementById(subscribe_box_id);
+                child.parentNode.removeChild(child);
+              }
+            }
+          });
+        }
+      }
+    </script>
   </body>
   <!--body ends-->
-
 </html>
-
-<script>
-  function deleteRow(subscribe_box_id, subscriber_id) {
-    var confirmResult = confirm("Are you sure?");
-
-    if(confirmResult) {
-      var site_url = "<?php echo $site_url; ?>";
-      $.ajax({
-        type: "post",
-        url: site_url + '/admin/views/ajax-data.php',
-        cache: false,
-        data: {subscriber_id: subscriber_id},
-        success: function(data) {
-          if(data == 1)
-          {
-            var child = document.getElementById(subscribe_box_id);
-            child.parentNode.removeChild(child);
-          }
-        }
-      });
-    }
-  }
-</script>

@@ -158,33 +158,31 @@
       
     </div>
     <!--container-fluid ends-->
-
+    <script>
+    $(function () {
+        var myChart = Highcharts.chart('bar', {
+            chart: {
+                type: 'bar',
+            },
+            title: {
+                text: 'Database Statistics'
+            },
+            xAxis: {
+                categories: ['Pages', 'Images']
+            },
+            yAxis: {
+                title: {
+                    text: 'Count'
+                }
+            },
+            series: [{
+                data: [<?php echo $page_count ?>, 0]
+            }, {
+                data: [0, <?php echo $image_count ?>]
+            }]
+        });
+    });
+    </script>
   </body>
   <!--body ends-->
 </html>
-
-<script>
-$(function () {
-    var myChart = Highcharts.chart('bar', {
-        chart: {
-            type: 'bar',
-        },
-        title: {
-            text: 'Database Statistics'
-        },
-        xAxis: {
-            categories: ['Pages', 'Images']
-        },
-        yAxis: {
-            title: {
-                text: 'Count'
-            }
-        },
-        series: [{
-            data: [<?php echo $page_count ?>, 0]
-        }, {
-            data: [0, <?php echo $image_count ?>]
-        }]
-    });
-});
-</script>

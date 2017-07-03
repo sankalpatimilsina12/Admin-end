@@ -170,44 +170,44 @@
       </div>
     </div>
     <!--footer ends-->
+    
+    <script>
+      function updateContents(page_id) {
+        var site_url = "<?php echo $site_url; ?>";
+
+        $.ajax({
+          type: "POST",
+          url: site_url + '/public/ajax-data.php',
+          cache: false,
+          data: {page_id: page_id},
+          success: function(data) {
+            document.getElementById("pages-list").innerHTML = data;
+          }
+        });
+
+      }
+    </script>
+
+    <!--<script>
+    var content;
+      $('a').click(function (e) {
+        e.preventDefault();
+
+        var page_id = $(this).attr("href");
+
+        $.ajax({
+          type: "POST",
+          url: site_url + '/public/ajax-data.php',
+          data: {page_id : page_id},
+          success: function(data) {
+            content = data;
+          }
+        });
+
+        document.getElementById("pages-list").innerHTML = content;
+
+      });
+    </script>;-->
   </body>
   <!--body ends-->
 </html>
-
-<script>
-  function updateContents(page_id) {
-    var site_url = "<?php echo $site_url; ?>";
-
-    $.ajax({
-      type: "POST",
-      url: site_url + '/public/ajax-data.php',
-      cache: false,
-      data: {page_id: page_id},
-      success: function(data) {
-        document.getElementById("pages-list").innerHTML = data;
-      }
-    });
-
-  }
-</script>
-
-<!--<script>
-var content;
-  $('a').click(function (e) {
-    e.preventDefault();
-
-    var page_id = $(this).attr("href");
-
-    $.ajax({
-      type: "POST",
-      url: site_url + '/public/ajax-data.php',
-      data: {page_id : page_id},
-      success: function(data) {
-        content = data;
-      }
-    });
-
-    document.getElementById("pages-list").innerHTML = content;
-
-  });
-</script>;-->

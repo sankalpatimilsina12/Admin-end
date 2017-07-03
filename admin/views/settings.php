@@ -151,34 +151,33 @@
       </div>
       <!--footer ends-->
     </div>
+    <!--Listen for the file upload event-->
+    <script>
+      function isImageLoaded() {
+
+        if(document.getElementById("file").value == "") {
+          document.getElementById("add-image").innerHTML = "Please select image to upload.";
+
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+
+    <!--Validation script-->
+    <script>
+      function validate() {
+
+        if(document.getElementById("footer-text").value == "") {
+          document.getElementById("footer-error").innerHTML = "Footer cannot be empty!";
+
+          return false;
+        }
+
+        return true;
+      }
+    </script>
   </body>
 </html>
 
-
-<!--Listen for the file upload event-->
-<script>
-  function isImageLoaded() {
-
-    if(document.getElementById("file").value == "") {
-      document.getElementById("add-image").innerHTML = "Please select image to upload.";
-
-      return false;
-    }
-
-    return true;
-  }
-</script>
-
-<!--Validation script-->
-<script>
-  function validate() {
-
-    if(document.getElementById("footer-text").value == "") {
-      document.getElementById("footer-error").innerHTML = "Footer cannot be empty!";
-
-      return false;
-    }
-
-    return true;
-  }
-</script>

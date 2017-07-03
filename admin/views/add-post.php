@@ -170,29 +170,27 @@
         <p class="footer-block"><?php echo $footer ?></p>
     </div>
     <!--footer ends-->
+    <!--validation script-->
+    <script>
+      function validate() {
+        document.getElementById("title-error").innerHTML = "";
+        document.getElementById("text-error").innerHTML = "";
 
+        var flag = true;
+
+        if(document.getElementById("title").value == "") {
+          document.getElementById("title-error").innerHTML = "Title field empty!";
+          flag = false;
+        }
+
+        if(CKEDITOR.instances.text.getData() == "") {
+          document.getElementById("text-error").innerHTML = "Text field empty!";
+          flag = false;
+        }
+
+        return flag;
+      }
+    </script>
   </body>
   <!--body ends-->
 </html>
-
-<!--validation script-->
-<script>
-  function validate() {
-    document.getElementById("title-error").innerHTML = "";
-    document.getElementById("text-error").innerHTML = "";
-
-    var flag = true;
-
-    if(document.getElementById("title").value == "") {
-      document.getElementById("title-error").innerHTML = "Title field empty!";
-      flag = false;
-    }
-
-    if(CKEDITOR.instances.text.getData() == "") {
-      document.getElementById("text-error").innerHTML = "Text field empty!";
-      flag = false;
-    }
-
-    return flag;
-  }
-</script>
